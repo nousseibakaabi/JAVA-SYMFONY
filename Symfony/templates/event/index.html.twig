@@ -1,0 +1,326 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}{{ 'events.index.title'|trans({}, 'messages', app.session.get('_locale')) }}{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .event-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .event-card table {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .event-card th {
+            width: 40%;
+            text-align: left;
+        }
+
+        .event-card td {
+            width: 60%;
+            text-align: left;
+            max-width: 150px; /* Adjust the max-width as needed */
+            word-wrap: break-word; /* Allow the content to wrap within the specified width */
+        }
+
+        .event-card .btn-primary {
+            width: 100%;
+        }
+        .custom-image {
+            width: 300px; /* Définir la largeur souhaitée */
+            height: 200px; /* Conserver le ratio hauteur/largeur */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!-- Event Start -->
+    <div class="container-xxl py-5">
+            <div class="language-switcher">
+            <form action="{{ path('set_locale') }}" method="post">
+                <select name="locale" onchange="this.form.submit()">
+                    <option value="en" {% if app.session.get('_locale') == 'en' %}selected{% endif %}>English</option>
+                    <option value="fr" {% if app.session.get('_locale') == 'fr' %}selected{% endif %}>French</option>
+                </select>
+            </form>
+        </div>
+
+                <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">{{ 'events.index.title'|trans({}, 'messages', app.session.get('_locale')) }}</h6>
+                <h1 class="mb-5">{{ 'events.index.our_events'|trans({}, 'messages', app.session.get('_locale')) }}</h1>
+
+                <div id="divs">
+                    <input class="form-control" type="text" id="search" placeholder="🔍">
+                    <a style="color:#FF0000;" class="tg-btn" href="" id="idup">{{ 'events.index.up'|trans({}, 'messages', app.session.get('_locale')) }}</a>
+                    <a style="color:#25DD28;" class="tg-btn" href="" id="iddown">{{ 'events.index.down'|trans({}, 'messages', app.session.get('_locale')) }}</a>
+                </div>
+            </div>
+
+
+            <div id="t">
+                <div class="row g-4" id="all">
+                    {% for event in pagination %}
+                        <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="event-card bg-light">
+                                <div class="overflow-hidden">
+                                    <img class="custom-image" src="{{ asset('uploads/' ~ event.image) }}" alt="{{ event.nameEvent }}">
+                                </div>
+                                <div class="text-center p-4">
+                                    <h4 class="mb-0">{{ event.nameevent }}</h4>
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            <th>{{ 'events.index.date'|trans({}, 'messages', app.session.get('_locale')) }}</th>
+                                            <td>{{ event.dateevent|date('Y-m-d') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ 'events.index.partners'|trans({}, 'messages', app.session.get('_locale')) }}</th>
+                                            <td>{{ event.idpartnerce.namepartner ?? 'N/A' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ 'events.index.max_number'|trans({}, 'messages', app.session.get('_locale')) }}</th>
+                                            <td>{{ event.nbrmax }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ 'events.index.price'|trans({}, 'messages', app.session.get('_locale')) }}</th>
+                                            <td>{{ event.prix }}</td>
+                                        </tr>                                      
+                                    </tbody>
+                                    </table>
+                                    <a href="{{ path('show_details', {'id': event.idevent}) }}" class="btn btn-primary">More Details</a>
+                                    {% if app.user %}
+                                       {% if event.isFullyBooked %}
+                                    <div class="alert alert-danger" role="alert">This event is fully booked!</div>
+                                       {% else %}
+                                    <a href="{{ path('app_reservation_add', {'eventId': event.idevent}) }}" class="btn btn-primary btn-lg">Book</a>
+                                       {% endif %}                                
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {# Affichage de la pagination #}
+                                    <div class="pagination-container">
+    {% include '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' with {'pagination': pagination} %}
+                                    </div>
+                <div class="row g-4" id="search"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#divs").keyup(function (e) {
+                var value = $("#search").val();
+                if (value.length >= 2 || value.length == 0) {
+                    $.ajax({
+                        url: "{{ path('search_event') }}",
+                        type: 'GET',
+                        data: {
+                            'searchValue': value
+                        },
+                        success: function (response) {
+                            if (response) {
+                                $('#t div#search').empty();
+                                var events = JSON.parse(response);
+                                $.each(events, function (i, event) {
+                                    $('#t div#all').hide();
+                                    $('#t div#search').append(
+                                        '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+                                        '<div class="event-card bg-light">' +
+                                        '<div class="overflow-hidden">' +
+                                        '<img class="img-fluid" src="{{ asset('uploads/') }}' + event.image + '" alt="' + event.nameevent + '">' +
+                                        '</div>' +
+                                        '<div class="text-center p-4">' +
+                                        '<h4 class="mb-0">' + event.nameevent + '</h4>' +
+                                        '<table class="table">' +
+                                        '<tbody>' +
+                                        '<tr>' +
+                                        '<th>{{ 'events.index.date'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                        '<td>' + formatDate(event.dateevent) + '</td>' +
+                                        '</tr>' +
+                                        '<tr>' +
+                                        '<th>{{ 'events.index.partners'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                        '<td>' + (event.idpartnerce ? event.idpartnerce.namepartner : 'N/A') + '</td>' +
+                                        '</tr>' +
+                                        '<tr>' +
+                                        '<th>{{ 'events.index.max_number'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                        '<td>' + event.nbrmax + '</td>' +
+                                        '</tr>' +
+                                        '<tr>' +
+                                        '<th>{{ 'events.index.price'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                        '<td>' + event.prix + '</td>' +
+                                        '</tr>' +
+                                        '</tbody>' +
+                                        '</table>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>'
+                                    );
+                                });
+                            } else {
+                                // Handle empty response
+                                $('#t div#all').show();
+                                $('#t div#search').empty();
+                                $('#t div#search').fadeIn('fast');
+                            }
+                        }
+                    });
+                    return false;
+                }
+            });
+
+            $("#idup").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "ASC";
+
+                $.ajax({
+                    url: "{{ path('search_event') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t div#search').empty();
+                            // Parse JSON response
+                            var events = JSON.parse(response);
+                            $.each(events, function (i, event) {
+                                $('#t div#all').hide();
+                                $('#t div#search').append(
+                                    '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+                                    '<div class="event-card bg-light">' +
+                                    '<div class="overflow-hidden">' +
+                                    '<img class="img-fluid" src="{{ asset('uploads/') }}' + event.image + '" alt="' + event.nameevent + '">' +
+                                    '</div>' +
+                                    '<div class="text-center p-4">' +
+                                    '<h4 class="mb-0">' + event.nameevent + '</h4>' +
+                                    '<table class="table">' +
+                                    '<tbody>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.date'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + formatDate(event.dateevent) + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.partners'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + (event.idpartnerce ? event.idpartnerce.namepartner : 'N/A') + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.max_number'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + event.nbrmax + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.price'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + event.prix + '</td>' +
+                                    '</tr>' +
+                                    '</tbody>' +
+                                    '</table>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                );
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t div#all').show();
+                            $('#t div#search').empty();
+                            $('#t div#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+
+            $("#iddown").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "DESC";
+
+                $.ajax({
+                    url: "{{ path('search_event') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t div#search').empty();
+                            var events = JSON.parse(response);
+                            $.each(events, function (i, event) {
+                                $('#t div#all').hide();
+                                $('#t div#search').append(
+                                    '<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">' +
+                                    '<div class="event-card bg-light">' +
+                                    '<div class="overflow-hidden">' +
+                                    '<img class="img-fluid" src="{{ asset('uploads/') }}' + event.image + '" alt="' + event.nameevent + '">' +
+                                    '</div>' +
+                                    '<div class="text-center p-4">' +
+                                    '<h4 class="mb-0">' + event.nameevent + '</h4>' +
+                                    '<table class="table">' +
+                                    '<tbody>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.date'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + formatDate(event.dateevent) + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.partners'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + (event.idpartnerce ? event.idpartnerce.namepartner : 'N/A') + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.max_number'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + event.nbrmax + '</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                    '<th>{{ 'events.index.price'|trans({}, 'messages', app.session.get('_locale')) }}</th>' +
+                                    '<td>' + event.prix + '</td>' +
+                                    '</tr>' +
+                                    '</tbody>' +
+                                    '</table>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                );
+
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t div#all').show();
+                            $('#t div#search').empty();
+                            $('#t div#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+        });
+
+        function formatDate(dateString) {
+            var date = new Date(dateString);
+            var year = date.getFullYear();
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+            return year + "-" + month + "-" + day;
+        }
+    </script>
+{% endblock %}

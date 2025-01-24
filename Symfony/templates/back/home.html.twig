@@ -1,0 +1,86 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Home Admin{% endblock %}
+
+{% block body %}
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-4 col-xxl-4 col-sm-6"> <!-- Adjust width here -->
+                    <div class="widget-stat card bg-primary" style="height: 120px;"> <!-- Adjust height here -->
+                        <div class="card-body">
+                            <div class="media">
+                                <span class="mr-3">
+                                    <i class="la la-users"></i>
+                                </span>
+                                <div class="media-body text-white">
+                                    <p class="mb-1">Total Reservations</p>
+                                    <h3 class="text-white">{{ totalReservations }}</h3>
+                                    <div class="progress mb-2 bg-white">
+                                        <div class="progress-bar progress-animated bg-light" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-xxl-4 col-sm-6"> <!-- Adjust width here -->
+                    <div class="widget-stat card bg-danger" style="height: 120px;"> <!-- Adjust height here -->
+                        <div class="card-body">
+                            <div class="media">
+                                <span class="mr-3">
+                                    <i class="la la-dollar"></i>
+                                </span>
+                                <div class="media-body text-white">
+                                    <p class="mb-1">Fees </p>
+                                    <h3 class="text-white">{{ totalAmount }}$</h3>
+                                     <div class="progress mb-2 bg-white">
+                                        <div class="progress-bar progress-animated bg-light" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add the chart canvas inside the row and col divs -->
+             <div class="col-xl-6 col-xxl-6 col-sm-12">
+                    <h2>Reservation Distribution by Event</h2> <!-- Add a title here -->
+                    <div class="content-body">
+                        <canvas id="myChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+
+      <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Statistics</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Emplacement où vous avez déplacé le code du pie chart -->
+                        <div id="div_chart"></div>
+
+                        <!-- Chargez la bibliothèque Google Charts -->
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <!-- Dessinez le graphique -->
+                        <script type="text/javascript">
+                            {{ gc_draw(piechart, 'div_chart') }}
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {{ chartData|json_encode|raw }},
+            options: {}
+        });
+    </script> 
+{% endblock %}

@@ -1,0 +1,58 @@
+
+{{ form_start (form, {'attr': {'novalidate': 'novalidate'}})}}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_label(form.imgEtablissement, 'Image') }}
+            {{ form_widget(form.imgEtablissement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.imgEtablissement) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.nomEtablissement, 'Name') }}
+            {{ form_widget(form.nomEtablissement, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.nomEtablissement) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.adresseEtablissement, 'Address') }}
+            {{ form_widget(form.adresseEtablissement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.adresseEtablissement) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.typeEtablissement, 'Type') }}
+            {{ form_widget(form.typeEtablissement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.typeEtablissement) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_label(form.telEtablissement, 'Telephone') }}
+            {{ form_widget(form.telEtablissement, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.telEtablissement) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.directeurEtablissement, 'Director') }}
+            {{ form_widget(form.directeurEtablissement, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.directeurEtablissement) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(form.dateFondation, 'Foundation Date') }}
+            {{ form_widget(form.dateFondation, {'attr': {'class': 'form-control datepicker-default', 'id': 'datepicker'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.dateFondation) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}
+                            {{ include('back/etablissement/map.html.twig') }}
+

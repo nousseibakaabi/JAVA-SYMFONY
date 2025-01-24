@@ -1,0 +1,58 @@
+{ _form.html.twig }
+{% form_theme form _self %}
+
+{% block _tuteur_nom_row %}
+    <div class="form-group">
+        {{ form_label(form.nom, 'Name') }}
+        {{ form_widget(form.nom, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.nom) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_prenom_row %}
+    <div class="form-group">
+        {{ form_label(form.prenom, 'First Name') }}
+        {{ form_widget(form.prenom, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.prenom) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_date_naisc_row %}
+    <div class="form-group">
+        {{ form_label(form.date_naisc, 'Date Of Birth') }}
+        {{ form_widget(form.date_naisc, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.date_naisc) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_tlf_row %}
+    <div class="form-group">
+        {{ form_label(form.tlf, 'Phone Number') }}
+        {{ form_widget(form.tlf, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.tlf) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_profession_row %}
+    <div class="form-group">
+        {{ form_label(form.profession, 'Profession') }}
+        {{ form_widget(form.profession, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.profession) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_email_row %}
+    <div class="form-group">
+        {{ form_label(form.email, 'Email') }}
+        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+        {{ form_errors(form.email) }}
+    </div>
+{% endblock %}
+
+{% block _tuteur_image_row %}
+    <div class="form-group">
+        {{ form_label(form.image, 'Image') }}
+        {{ form_widget(form.image, { 'attr': {'class': 'form-control-file'} }) }}
+        {{ form_errors(form.image) }}
+    </div>
+{% endblock %}

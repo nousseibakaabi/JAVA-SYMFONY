@@ -1,0 +1,13 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Quiz Failure{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4" style="color: #F44336;">Quiz Failed!</h1>
+        <p class="text-center mb-4" style="color: #666;">Don't worry, better luck next time! Learning is a journey.</p>
+        <div class="text-center">
+            <a href="{{ path('quiz_pass', {'quizId': quizId}) }}" class="btn btn-danger">Try Again</a>
+        </div>
+    </div>
+{% endblock %}

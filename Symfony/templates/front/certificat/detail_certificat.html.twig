@@ -1,0 +1,217 @@
+{% block stylesheets %}
+<head>
+<title>Certificat</title>
+    <meta charset="utf-8">
+    <title>{% block title %}  {% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{{ asset('front/img/favicon.ico') }}" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{{ asset('front/lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('front/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{{ asset('back/icon/favicon-32x32.png') }}css/style.css" rel="stylesheet">
+</head>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap">
+<style>
+    body {
+        font-family: Roboto;
+    }
+
+    .certificate-container {
+        padding: 50px;
+        width: 1024px;
+    }
+
+    .certificate {
+        border: 20px solid #0C5280;
+        padding: 25px;
+        height: 600px;
+        position: relative;
+    }
+
+    .certificate:after {
+        content: '';
+        top: 0px;
+        left: 0px;
+        bottom: 90px;
+        right: 0px;
+        position: absolute;
+        background-image: url('http://127.0.0.1:8000/back/images/logo.png'); /* Utilisation du chemin relatif */
+        background-size: cover; /* ou background-size: 100%; selon vos besoins */
+        z-index: -1;
+        opacity: 0.15; /* Réduire l'opacité à 50% (vous pouvez ajuster cette valeur selon vos préférences) */
+    }
+
+.certificate-header > .logo {
+    width: 110px;
+    height: 110px;
+    position: absolute; /* Position absolue par rapport à .certificate-header */
+    top: 0; /* Alignement en haut */
+    left: 0; /* Alignement à droite */
+}
+
+.certificate-headerr > .logoo {
+    width: 110px;
+    height: 110px;
+    position: absolute; /* Position absolue par rapport à .certificate-header */
+    top: 0; /* Alignement en haut */
+    right: 0; /* Alignement à droite */
+}
+
+.certificate-headerr > .signature {
+    width: 110px;
+    height: 110px;
+    position: absolute; /* Position absolue par rapport à .certificate-header */
+    bottom: 0; /* Alignement en haut */
+    right: 0; /* Alignement à droite */
+}
+
+    .certificate-title {
+        text-align: center;
+        font-size: 25px; /* Agrandir la taille du titre */
+        color:#CE4524;
+    }
+
+    .certificate-body {
+        text-align: center;
+    }
+
+    h1 {
+        font-weight: 400;
+        font-size: 36px;
+        color: #0C5280;
+        font-family:Maharlika;
+    }
+
+    .student-name {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .certificate-content {
+        margin: 0 auto;
+        width: 750px;
+    }
+
+    .about-certificate {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+    .topic-description {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .text-muted {
+        color: #6c757d;
+    }
+
+    .certificate-footer {
+        margin-top: 20px;
+    }
+
+    .btn {
+        margin-top: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="certificate-container">
+    <div class="certificate">
+        <div class="water-mark-overlay"></div>
+        <div class="certificate-header">
+            <img src="https://img.freepik.com/premium-vector/luxury-golden-award-icon-certificate-design-blue-gold-2_609989-190.jpg?size=626&ext=jpg&ga=GA1.1.2132764106.1713823688&semt=ais" class="logo" alt="">
+        </div>
+                <div class="certificate-headerr">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTH5P77HxNdRLJoF0k_YkQbLrnfgp_5NIQJ0PFiY2T0zw&s  " class="logoo" alt="">
+        </div>
+        <div class="certificate-body">
+            <h1>Certificate of Completion</h1>
+                        <p class="certificate-title">{{ certificat.nomCertificat }}</p>
+
+            <p>The recipient of this certificate is</p>
+            <p class="student-name">{{ app.user.name }}</p>
+            <p>Their dedication and commitment to academic excellence have been commendable.</p>
+            <div class="certificate-content">
+                <div class="about-certificate">
+                    <p>The certificate, endorsed by <strong>TANIT ONLINE EDUCATION</strong>, signifies mastery in the field of <strong>{{ certificat.domaineCertificat }}</strong>.</p>
+                </div>
+                <p>It demonstrates a high level of competence and proficiency.</p>
+                <p class="topic-description">Delivered on {{ certificat.dateObtentionCertificat|date('d F Y') }}.</p>
+                <div class="text-center">
+                    <p class="topic-description text-muted">The certificate was issued by <strong>{{ certificat.idEtablissement.nomEtablissement }}</strong>.</p>
+                </div>
+            </div>
+            <div class="certificate-footer text-muted">
+                <p>It was issued under the leadership of <strong>{{ certificat.idEtablissement.directeurEtablissement }}</strong>. Their guidance and support have played a crucial role in the recipient's academic journey.</p>
+                         <br>  <div class="certificate-headerr">
+            <img src="https://www.signwell.com/assets/vip-signatures/muhammad-ali-signature-3f9237f6fc48c3a04ba083117948e16ee7968aae521ae4ccebdfb8f22596ad22.svg " class="signature" alt="">
+        </div></br>
+            </div>
+        </div>
+    </div>
+</div>
+        <a href="javascript:history.go(-1)" class="btn btn-primary">Retourner</a>
+
+<button class="btn btn-primary" id="generate-pdf-btn"><i class="far fa-file-pdf"></i> PDF</button>
+
+    </div>
+
+<script>
+    function generatePDF(idCertificat) {
+        // Faites une requête AJAX pour récupérer le PDF
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/certificat/certificat/' + idCertificat + '/pdf', true);
+        xhr.responseType = 'blob'; // Type de réponse Blob
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Créez un objet URL à partir des données de réponse
+                var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+
+                // Créez un lien et cliquez dessus pour télécharger le PDF
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'certificat_' + idCertificat + '.pdf'; // Nom de fichier PDF
+                document.body.appendChild(a);
+                a.click();
+
+                // Révoque l'URL de l'objet une fois le téléchargement terminé
+                window.URL.revokeObjectURL(url);
+            }
+        };
+        xhr.send();
+    }
+
+    document.getElementById('generate-pdf-btn').addEventListener('click', function() {
+        generatePDF({{ certificat.idCertificat }});
+    });
+
+
+    </script>
+</body>
+{% endblock %}

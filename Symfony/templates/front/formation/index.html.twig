@@ -1,0 +1,323 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}{{ 'Course Details'|trans({}, 'messages', app.session.get('_locale')) }}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+    <div class="container-xxl py-5">
+        <form action="{{ path('set_locale_formation') }}" method="post">
+            <select name="locale" onchange="this.form.submit()">
+                <option value="en" {% if app.session.get('_locale') == 'en' %}selected{% endif %}>{{ 'English'|trans({}, 'messages', app.session.get('_locale')) }}</option>
+                <option value="fr" {% if app.session.get('_locale') == 'fr' %}selected{% endif %}>{{ 'French'|trans({}, 'messages', app.session.get('_locale')) }}</option>
+            </select>
+        </form>
+
+        <div class="container">
+            <h1 class="text-center mb-4">{{ 'Course Details'|trans({}, 'messages', app.session.get('_locale')) }}</h1>
+            {% if app.user %}
+                {% if app.user.roles[0]=="Tuteur" %}
+                    <a href="{{ path('app_formation_new_front') }}" class="btn btn-success">{{ 'Add Course'|trans({}, 'messages', app.session.get('_locale')) }}</a>
+                {% endif %}
+            {% endif %}
+            <div id="divs">
+                <input class="form-control" type="text" id="search" placeholder="🔍">
+                <a style="color:#FF0000;" class="tg-btn" href="" id="idup">UP ⬆️</a>
+                <a style="color:#25DD28;" class="tg-btn" href="" id="iddown">DOWN ⬇️</a>
+            </div>
+            <div id="t">
+                <div class="row" id="all">
+                    {% for formationn in formationns %}
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    <h5 class="card-title">{{ formationn.getTitre() }}</h5>
+                                </div>
+                                <div class="card-body" >
+                                    <dl class="row">
+                                        <dt class="col-sm-4">{{ 'Level'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8">{{ formationn.Niveau.name }}</dd>
+
+                                        <dt class="col-sm-4">{{ 'Category'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8">{{ formationn.getCategorie() }}</dd>
+
+                                        <dt class="col-sm-4">{{ 'Description'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8">{{ formationn.getDescription() }}</dd>
+
+                                        <dt class="col-sm-4">{{ 'Start Date'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8">{{ formationn.getDateD() ? formationn.getDateD()|date('Y-m-d') : '' }}</dd>
+
+                                        <dt class="col-sm-4">{{ 'End Date'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8">{{ formationn.getDateF() ? formationn.getDateF()|date('Y-m-d') : '' }}</dd>
+
+                                        <dt class="col-sm-4">{{ 'Link'|trans({}, 'messages', app.session.get('_locale')) }}:</dt>
+                                        <dd class="col-sm-8"><a href="{{ formationn.getLien() }}" target="_blank">{{ formationn.getLien() }}</a></dd>
+                                    </dl>
+                                </div>
+                                <div class="card-footer text-center" >
+                                    {% if app.user %}
+                                        {% if app.user.roles[0]=="Tuteur" %}
+                                            <a href="{{ path('app_formation_edit_front', {'Idformation': formationn.idformation}) }}" class="btn btn-info" title="{{ 'Edit'|trans({}, 'messages', app.session.get('_locale')) }}">
+                                                <i class="la la-pencil"></i> {{ 'Edit'|trans({}, 'messages', app.session.get('_locale')) }}
+                                            </a>
+                                            <form action="{{ path('app_formation_delete_front', {'Idformation': formationn.idformation}) }}" method="post" class="d-inline">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formationn.idformation) }}">
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('{{ 'Are you sure you want to delete this course?'|trans({}, 'messages', app.session.get('_locale')) }}')" title="{{ 'Delete'|trans({}, 'messages', app.session.get('_locale')) }}">
+                                                    <i class="la la-trash"></i> {{ 'Delete'|trans({}, 'messages', app.session.get('_locale')) }}
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if formationn.getPdfFilename() %}
+                                        <a href="{{ path('open_pdf', {'filename': formationn.getPdfFilename()}) }}" class="btn btn-primary" title="{{ 'View PDF'|trans({}, 'messages', app.session.get('_locale')) }}" target="_blank">
+                                            <i class="far fa-file-pdf"></i> {{ 'View PDF'|trans({}, 'messages', app.session.get('_locale')) }}
+                                        </a>
+                                        {% else %}
+                                            <p>PDF indisponible</p>
+                                    {% endif %}
+
+                                    <a href="{{ path('show_quizzes_front', {'formationId': formationn.idformation}) }}" class="btn btn-secondary">{{ 'View Quizzes'|trans({}, 'messages', app.session.get('_locale')) }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row" id="search">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#search").keyup(function (e) {
+                var value = $(this).val();
+                if (value.length >= 1 || value.length == 0) {
+                    $.ajax({
+                        url: "{{ path('search_formation') }}",
+                        type: 'GET',
+                        data: {
+                            'searchValue': value
+                        },
+                        success: function (response) {
+                            if (response) {
+                                $('#t div#search').empty();
+                                var formations = JSON.parse(response);
+                                $.each(formations, function (i, formation) {
+                                    $('#t div#all').hide();
+                                    $('#t div#search').append(
+                                        '<div class="col-md-6 mb-4">' +
+                                        '<div class="card">' +
+                                        '<div class="card-header bg-primary text-white">' +
+                                        '<h5 class="card-title">' +  formation.titre + '</h5>' +
+                                        '</div>' +
+                                        '<div class="card-body">' +
+                                        '<dl class="row">' +
+                                        '<dt class="col-sm-4">{{ "Level"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8">' + formation.niveau.name  + '</dd>' +
+                                        '<dt class="col-sm-4">{{ "Category"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8">' + formation.categorie + '</dd>' +
+                                        '<dt class="col-sm-4">{{ "Description"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8">' + formation.description  + '</dd>' +
+                                        '<dt class="col-sm-4">{{ "Start Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8">' +  (formation.date_d ? formation.date_d.substring(0, 10) : '')+ '</dd>' +
+                                        '<dt class="col-sm-4">{{ "End Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8">' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</dd>' +
+                                        '<dt class="col-sm-4">{{ "Link"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                        '<dd class="col-sm-8"><a href="'+ formation.lien +'" target="_blank">' +  formation.lien  + '</a></dd>' +
+                                        '</dl>' +
+                                        '</div>' +
+                                        '<div class="card-footer text-center">' +
+                                        '{% if app.user %}' +
+                                        '{% if app.user.roles[0]=="Tuteur" %}' +
+                                        '<a href="/formation/edit_front/'+ formation.id_formation +'" class="btn btn-info" title="{{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}">' +
+                                        '<i class="la la-pencil"></i> {{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}' +
+                                        '</a>' +
+                                        '<form action="/formation/front/' + formation.id_formation + '" method="post" class="d-inline">' +
+                                        '<input type="hidden" name="_token" ><button type="submit" class="btn btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete">' +
+                                        '<i class="la la-trash">{{ "Delete"|trans({}, "messages", app.session.get("_locale")) }}</i>' +
+                                        '</button>' +
+                                        '</form>' +
+                                        '{% endif %}' +
+                                        '{% endif %}' +
+                                        (formation.pdfFilename ?
+                                                '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank">' +
+                                                '<i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i>' +
+                                                '</a>' :
+                                                '<p>PDF indisponible</p>'
+                                        ) +
+                                        '<a href="/quizzes/show-quizzes_front/'+ formation.id_formation +'" class="btn btn-secondary">{{ "View Quizzes"|trans({}, "messages", app.session.get("_locale")) }}</a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>'
+                                    );
+                                });
+                            } else {
+                                $('#t div#all').show();
+                                $('#t div#search').empty();
+                                $('#t div#search').fadeIn('fast');
+                            }
+                        }
+                    });
+                    return false;
+                }
+            });
+
+            $("#idup").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "ASC";
+
+                $.ajax({
+                    url: "{{ path('search_formation') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        if (response) {
+                            $('#t div#search').empty();
+                            var formations = JSON.parse(response);
+                            $.each(formations, function (i, formation) {
+                                $('#t div#all').hide();
+                                $('#t div#all').hide();
+                                $('#t div#search').append(
+                                    '<div class="col-md-6 mb-4">' +
+                                    '<div class="card">' +
+                                    '<div class="card-header bg-primary text-white">' +
+                                    '<h5 class="card-title">' +  formation.titre + '</h5>' +
+                                    '</div>' +
+                                    '<div class="card-body">' +
+                                    '<dl class="row">' +
+                                    '<dt class="col-sm-4">{{ "Level"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.niveau.name  + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Category"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.categorie + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Description"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.description  + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Start Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' +  (formation.date_d ? formation.date_d.substring(0, 10) : '')+ '</dd>' +
+                                    '<dt class="col-sm-4">{{ "End Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Link"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8"><a href="'+ formation.lien +'" target="_blank">' +  formation.lien  + '</a></dd>' +
+                                    '</dl>' +
+                                    '</div>' +
+                                    '<div class="card-footer text-center">' +
+                                    '{% if app.user %}' +
+                                    '{% if app.user.roles[0]=="Tuteur" %}' +
+                                    '<a href="/formation/edit_front/'+ formation.id_formation +'" class="btn btn-info" title="{{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}">' +
+                                    '<i class="la la-pencil"></i> {{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}' +
+                                    '</a>' +
+                                    '<form action="/formation/front/' + formation.id_formation + '" method="post" class="d-inline">' +
+                                    '<input type="hidden" name="_token" ><button type="submit" class="btn btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete">' +
+                                    '<i class="la la-trash">{{ "Delete"|trans({}, "messages", app.session.get("_locale")) }}</i>' +
+                                    '</button>' +
+                                    '</form>' +
+                                    '{% endif %}' +
+                                    '{% endif %}' +
+                                    (formation.pdfFilename ?
+                                            '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank">' +
+                                            '<i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i>' +
+                                            '</a>' :
+                                            '<p>PDF indisponible</p>'
+                                    ) +
+                                    '<a href="/quizzes/show-quizzes_front/'+ formation.id_formation +'" class="btn btn-secondary">{{ "View Quizzes"|trans({}, "messages", app.session.get("_locale")) }}</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                );
+                            });
+                        } else {
+                            $('#t div#all').show();
+                            $('#t div#search').empty();
+                            $('#t div#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+            });
+
+            $("#iddown").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "DESC";
+
+                $.ajax({
+                    url: "{{ path('search_formation') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        if (response) {
+                            $('#t div#search').empty();
+                            var formations = JSON.parse(response);
+                            $.each(formations, function (i, formation) {
+                                $('#t div#all').hide();
+                                $('#t div#all').hide();
+                                $('#t div#search').append(
+                                    '<div class="col-md-6 mb-4">' +
+                                    '<div class="card">' +
+                                    '<div class="card-header bg-primary text-white">' +
+                                    '<h5 class="card-title">' +  formation.titre + '</h5>' +
+                                    '</div>' +
+                                    '<div class="card-body">' +
+                                    '<dl class="row">' +
+                                    '<dt class="col-sm-4">{{ "Level"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.niveau.name  + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Category"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.categorie + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Description"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + formation.description  + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Start Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' +  (formation.date_d ? formation.date_d.substring(0, 10) : '')+ '</dd>' +
+                                    '<dt class="col-sm-4">{{ "End Date"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8">' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</dd>' +
+                                    '<dt class="col-sm-4">{{ "Link"|trans({}, "messages", app.session.get("_locale")) }}:</dt>' +
+                                    '<dd class="col-sm-8"><a href="'+ formation.lien +'" target="_blank">' +  formation.lien  + '</a></dd>' +
+                                    '</dl>' +
+                                    '</div>' +
+                                    '<div class="card-footer text-center">' +
+                                    '{% if app.user %}' +
+                                    '{% if app.user.roles[0]=="Tuteur" %}' +
+                                    '<a href="/formation/edit_front/'+ formation.id_formation +'" class="btn btn-info" title="{{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}">' +
+                                    '<i class="la la-pencil"></i> {{ "Edit"|trans({}, "messages", app.session.get("_locale")) }}' +
+                                    '</a>' +
+                                    '<form action="/formation/front/' + formation.id_formation + '" method="post" class="d-inline">' +
+                                    '<input type="hidden" name="_token" ><button type="submit" class="btn btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete">' +
+                                    '<i class="la la-trash">{{ "Delete"|trans({}, "messages", app.session.get("_locale")) }}</i>' +
+                                    '</button>' +
+                                    '</form>' +
+                                    '{% endif %}' +
+                                    '{% endif %}' +
+                                    (formation.pdfFilename ?
+                                            '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank">' +
+                                            '<i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i>' +
+                                            '</a>' :
+                                            '<p>PDF indisponible</p>'
+                                    ) +
+                                    '<a href="/quizzes/show-quizzes_front/'+ formation.id_formation +'" class="btn btn-secondary">{{ "View Quizzes"|trans({}, "messages", app.session.get("_locale")) }}</a>' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '</div>'
+                                );
+                            });
+                        } else {
+                            $('#t div#all').show();
+                            $('#t div#search').empty();
+                            $('#t div#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'base-front.html.twig' %}
+{% block title %}Tuteurs{% endblock %}
+
+{% block body %}
+    <!-- Tuteurs Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Tutors</h6>
+                <h1 class="mb-5">Tutors List</h1>
+           
+            <div class="row g-4">
+                {% for tuteur in tuteurs %}
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item bg-light">
+                            <div class="overflow-hidden">
+                                <img class="img-fluid" src="{{ asset('images' ~ tuteur.image) }}" alt="">
+                            </div>  
+                            
+                            <div class="text-center p-4">
+                                <!-- Ajoutez ici les informations du tuteur -->
+                                <h4 class="mb-0">{{ tuteur.nom }} {{ tuteur.prenom }}</h4>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Date Of Birth</th>
+                                        <td>{{ tuteur.dateNaisc ? tuteur.dateNaisc|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone Number</th>
+                                        <td>{{ tuteur.tlf }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Profession</th>
+                                        <td>{{ tuteur.profession }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ tuteur.email }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                
+                               
+                               
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

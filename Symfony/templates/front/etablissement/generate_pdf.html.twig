@@ -1,0 +1,110 @@
+{% block stylesheets %}
+<head>
+<title>Etablissement</title>
+
+{% endblock %}
+
+{% block body %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+<style>  
+  table {  
+    font-family: arial, sans-serif;  
+    border-collapse: collapse;  
+    width: 50%;
+    margin: 0px auto;
+  }
+  #htmlContent{
+    text-align: center;
+  }  
+  td, th, button {  
+    border: 1px solid #dddddd;  
+    text-align: left;  
+    padding: 8px;  
+  }  
+  button {  
+    border: 1px solid black;   
+  } 
+  tr:nth-child(even) {  
+    background-color: #dddddd;  
+  }  
+</style>  
+<div id="htmlContent">
+    <h2 style="color: #0094ff">{{ etablissement.nomEtablissement }}</h2>
+    <h3>About this School:</h3>
+    <table>
+        <tbody>
+            <tr>
+                <th>Address</th>
+                <th>Type</th>
+                <th>Contact</th>
+                <th>Director</th>
+                <th>Foundation Date</th>
+            </tr>
+            <tr>
+                <td>{{ etablissement.adresseEtablissement }}</td>
+                <td>{{ etablissement.typeEtablissement }}</td>
+                <td>{{ etablissement.telEtablissement }}</td>
+                <td>{{ etablissement.directeurEtablissement }}</td>
+                <td>{{ etablissement.dateFondation ? etablissement.dateFondation|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+                <!-- Certificats -->
+                <h2 class="text-center mt-5 mb-4">Certificates for {{ etablissement.nomEtablissement }}</h2>
+                {% if certificats is not empty %}
+                    <div class="list-group">
+                        {% for certificat in certificats %}
+                            <div class="list-group-item">
+                                <h4 class="mb-2">{{ certificat.nomCertificat }}</h4>
+                                <p><strong>Field:</strong> {{ certificat.domaineCertificat }}</p>
+                                <p><strong>Level:</strong> {{ certificat.niveau }}</p>
+                                <p><strong>Delivration Date:</strong> {{ certificat.dateObtentionCertificat ? certificat.dateObtentionCertificat|date('Y-m-d') : '' }}</p>
+                                <!-- Add additional certificat details as needed -->
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning" role="alert">
+                       This school has no certificates yet.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+<script>
+    function generatePDF(idEtablissement) {
+        // Faites une requête AJAX pour récupérer le PDF
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/etablissement/' + idEtablissement + '/pdf', true);
+        xhr.responseType = 'blob'; // Type de réponse Blob
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Créez un objet URL à partir des données de réponse
+                var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                var url = window.URL.createObjectURL(blob);
+
+                // Créez un lien et cliquez dessus pour télécharger le PDF
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'etablissement_' + idEtablissement + '.pdf'; // Nom de fichier PDF
+                document.body.appendChild(a);
+                a.click();
+
+                // Révoque l'URL de l'objet une fois le téléchargement terminé
+                window.URL.revokeObjectURL(url);
+            }
+        };
+        xhr.send();
+    }
+
+    document.getElementById('generate-pdf-btn').addEventListener('click', function() {
+        generatePDF({{ etablissement.idEtablissement }});
+    });
+</script>
+
+</body>
+{% endblock %}

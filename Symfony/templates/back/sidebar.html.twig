@@ -1,0 +1,66 @@
+ <div class="dlabnav">
+            <div class="dlabnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li><a class="has-arrow" href="{{ path('app_index_admin') }}" aria-expanded="false">
+							<i class="la la-home"></i>
+                                <span class="nav-text">Dashboard</span>
+						</a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_users_index_admin') }}" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Users</span>
+                        </a>
+                    </li>
+                   <li><a class="ai-icon" href="#" aria-expanded="false">
+							<i class="la la-calendar"></i>
+							<span class="nav-text">Reservations</span>
+						</a>
+                        <ul aria-expanded="false">
+                            <li><a href="{{ path('back_reservation') }}">All Reservations</a></li>
+                            <li><a href="{{ path('app_remises') }}">All Discounts</a></li>
+                        </ul>                       
+                    </li>
+                    <li><a class="has-arrow" href="{{ path('app_event_back') }}" aria-expanded="false">
+							<i class="la la-user"></i>
+							<span class="nav-text">Events</span>
+						</a>
+                    </li>
+                    <li><a class="has-arrow" href="{{ path('app_partner') }}" aria-expanded="false">
+							<i class="la la-user"></i>
+							<span class="nav-text">Partners</span>
+						</a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_etablissement_index_admin') }}" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Etablissement</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_certificat_index_admin') }}" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Certificat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_niveau_index') }}" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Levels</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_apprenants_listback') }}" aria-expanded="false">
+                            <i class="la la-user"></i>
+                            <span class="nav-text">Students</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="{{ path('app_formation_index') }}" aria-expanded="false">
+                            <i class="la la-book"></i>
+                            <span class="nav-text">All Courses</span>
+                        </a>
+                    </li>
+                </ul>
+        </div>
+    </div>

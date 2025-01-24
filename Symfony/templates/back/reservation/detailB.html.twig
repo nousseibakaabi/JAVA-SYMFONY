@@ -1,0 +1,319 @@
+{% extends 'base-back.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        .spacer {
+            height: 20px; /* Adjust the height as needed */
+        }
+
+        .ticket {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto;
+            display: flex;
+        }
+
+        .left {
+            display: flex;
+        }
+
+        .image {
+            height: 250px;
+            width: 250px;
+            background-size: cover; /* or 'contain' */
+            background-position: center;
+            opacity: 0.85;
+        }
+        .admit-one {
+            position: absolute;
+            color: darkgray;
+            height: 250px;
+            padding: 0 10px;
+            letter-spacing: 0.15em;
+            display: flex;
+            text-align: center;
+            justify-content: space-around;
+            writing-mode: vertical-rl;
+            transform: rotate(-180deg);
+        }
+
+        .admit-one span:nth-child(2) {
+            color: white;
+            font-weight: 700;
+        }
+
+        .left .ticket-number {
+            height: 250px;
+            width: 250px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 5px;
+        }
+
+        .ticket-info {
+            padding: 10px 30px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date {
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            padding: 5px 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .date span {
+            width: 100px;
+        }
+
+        .date span:first-child {
+            text-align: left;
+        }
+
+        .date span:last-child {
+            text-align: right;
+        }
+
+        .date .june-29 {
+            color: #d83565;
+            font-size: 20px;
+        }
+
+        .show-name {
+            font-size: 32px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #d83565;
+        }
+
+        .show-nameUSER h1 {
+            font-size: 20px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #4a437e;
+        }
+        .show-nameUSER p {
+            font-size: 15px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #4a437e;
+        }
+
+        .show-name h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #4a437e;
+        }
+
+        .time {
+            padding: 10px 0;
+            color: #4a437e;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .time span {
+            font-weight: 400;
+            color: gray;
+        }
+
+        .left .time {
+            font-size: 16px;
+        }
+
+
+        .location {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding-top: 8px;
+            border-top: 1px solid gray;
+        }
+
+        .location .separator {
+            font-size: 20px;
+        }
+
+        .right {
+            width: 180px;
+            border-left: 1px dashed #404040;
+        }
+
+        .right .admit-one {
+            color: darkgray;
+        }
+
+        .right .admit-one span:nth-child(2) {
+            color: gray;
+        }
+
+        .right .right-info-container {
+            height: 250px;
+            padding: 10px 10px 10px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .right .show-name h1 {
+            font-size: 18px;
+        }
+
+        .barcode {
+            height: 100px;
+        }
+
+        .barcode img {
+            height: 100%;
+        }
+
+        .right .ticket-number {
+            color: gray;
+        }
+
+
+        .form-error-message {
+            color: red;
+        }
+
+        .alert.alert-dan {
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: small;
+            font-weight: bold;
+        }
+
+    </style>
+{% endblock %}
+{% block title %}Home Admin{% endblock %}
+
+{% block body %}
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+         <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>Reservation Detail</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_index_admin') }}">Home</a></li>
+                <li class="breadcrumb-item active"><a href="{{ path('back') }}">All Reservations</a></li>
+                <li class="breadcrumb-item active"><a href="{{ path('back') }}">Reservation Detail</a></li>
+            </ol>
+        </div>
+    </div>
+            <div class="row">
+                <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="{{ path('back') }}" class="btn btn-primary back-btn" >
+                                <i class="fas fa-arrow-left"></i> <!-- Assuming you're using Font Awesome for icons -->
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                </div>
+                            </div>
+                            <div class="ticket created-by-anniedotexe">
+                                <div class="left">
+                                    <div class="image" style="background-image: url('{{ asset('uploads/' ~ reservation.Imagesrc) }}');">
+                                        <p class="admit-one">
+                                            <span>ADMIT ONE</span>
+                                            <span>ADMIT ONE</span>
+                                            <span>ADMIT ONE</span>
+                                        </p>
+                                        <div class="ticket-number">
+                                            <p>#{{ reservation.id }}</p>
+                                        </div>
+                                        <div class="show-nameUSER">
+                                            <H1>Reserved by : <strong>{{ reservation.iduser.name ?? 'Unknown User' }}</strong></h1>
+                                            <p>AT: {{ paiement.heureP | date('Y-m-d H:i:s') }}</p> <!-- Display heureP here -->
+                                            <p>Montant Total: {{ paiement.montant }} TND</p>
+                                        </div>
+                                    </div>
+                                    <div class="ticket-info">
+                                        <p class="date">
+                                            <span>{{ reservation.IdEvent.dateevent|date('l') }}</span>
+                                            <span class="june-29">{{ reservation.IdEvent.dateevent|date('F jS') }}</span>
+                                            <span>{{ reservation.IdEvent.dateevent|date('Y') }}</span>
+                                        </p>
+                                        <div class="show-name">
+                                            <h1>EVENT</h1>
+                                            <h2>{{ reservation.namee }}</h2>
+                                        </div>
+                                        <div class="time">
+                                            <p>8:00 PM <span>TO</span> 11:00 PM</p>
+                                            <p>DOORS <span>@</span> 7:00 PM</p>
+                                            <p>Reserved Places <span>:</span> {{ reservation.nbPlaces }}</p>
+                                        </div>
+                                        <p class="location">
+                                            <span>Tanit Online</span>
+                                            <span class="separator"><i class="far fa-smile"></i></span>
+                                            <span>Tunisia, Ariana</span>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <p class="admit-one">
+                                        <span>ADMIT ONE</span>
+                                        <span>ADMIT ONE</span>
+                                        <span>ADMIT ONE</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>SOUR Prom</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>8:00 PM <span>TO</span> 11:00 PM</p>
+                                            <p>DOORS <span>@</span> 7:00 PM</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ qrCodeUrl }}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">#20030220</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+   
+
+{% endblock %}

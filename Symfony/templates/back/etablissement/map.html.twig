@@ -1,0 +1,159 @@
+<!-- AIzaSyBKbAQafF9CzI3D1HJkRgwxWywnFK8oSgM-->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKbAQafF9CzI3D1HJkRgwxWywnFK8oSgM&libraries=places&callback=initialize" async defer></script>
+
+<div id="map" style="width: 946px; height: 400px;"></div>
+  <div>  <input  id="searchInput" type="text" placeholder="Search for a location..."></div>
+
+<script>
+    var map;
+    var markers = [];
+    var selectedMarker;
+    var searchBox;
+
+    function initialize() {
+        var mapOptions = {
+            center: {lat: 36.8065, lng: 10.1815}, // Tunis coordinates
+            zoom: 8
+        };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        initSearchBox();
+        // Add event listener for click
+        google.maps.event.addListener(map, 'click', function(event) {
+            clearMarkers();
+            addMarker(event.latLng);
+        });
+    }
+
+    function addMarker(location) {
+        clearMarkers();
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+        selectedMarker = marker;
+    }
+
+    function clearMarkers() {
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+    }
+
+    function initSearchBox() {
+        // Create a search box and link it to the UI element
+        var input = document.getElementById('searchInput');
+        searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        // Bias the SearchBox results towards the map's viewport
+        map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place
+        searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length === 0) {
+                return;
+            }
+
+            // Clear out the old markers
+            clearMarkers();
+
+            // For each place, get the icon, name and location
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                // Create a marker for each place
+                addMarker(place.geometry.location);
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+
+    function searchLocation() {
+        var input = document.getElementById('searchInput').value;
+        searchBox.setBounds(map.getBounds());
+        var places = searchBox.getPlaces();
+        if (places.length === 0) {
+            alert('No results found for the entered location.');
+            return;
+        }
+
+        // Clear out the old markers
+        clearMarkers();
+
+        // For each place, get the icon, name and location
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+            if (!place.geometry) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Create a marker for each place
+            addMarker(place.geometry.location);
+
+            if (place.geometry.viewport) {
+                // Only geocodes have viewport
+                bounds.union(place.geometry.viewport);
+            } else {
+                bounds.extend(place.geometry.location);
+            }
+        });
+        map.fitBounds(bounds);
+    }
+    
+    async function selectLocation() {
+    if (selectedMarker) {
+        var latitude = selectedMarker.getPosition().lat();
+        var longitude = selectedMarker.getPosition().lng();
+        console.log("Selected Location: " + latitude + ", " + longitude);
+        
+        const url = `https://map-geocoding.p.rapidapi.com/json?latlng=${latitude}%2C${longitude}`;
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '851043c9c5msh0aa186978e73228p1fc28ejsnc5a06e5d792a',
+                'X-RapidAPI-Host': 'map-geocoding.p.rapidapi.com'
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const result = await response.json();
+            console.log("Selected Address: " + result.results[0].formatted_address);
+            document.getElementById("etablissement_adresseEtablissement").value = result.results[0].formatted_address;
+        } catch (error) {
+            console.error(error);
+        }   
+        } 
+
+
+        
+    }
+
+
+</script>
+
+        <div>
+    <button class="btn btn-primary" id="searchButton" onclick="searchLocation()">Search</button>
+    <button class="btn btn-primary" id="selectButton" onclick="selectLocation()">Select</button>
+</div>

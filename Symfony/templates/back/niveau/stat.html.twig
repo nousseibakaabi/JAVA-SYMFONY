@@ -1,0 +1,39 @@
+{% extends 'base-back.html.twig' %}
+
+
+
+{% block body%}
+
+    <div class="content-body">
+    <div class="container-fluid">
+
+    <!--main content start-->
+
+    <section id="main-content">
+    <section class="wrapper">
+        <!--overview start-->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header"><i class="icon_bag_alt"></i>level statistics</h3>
+
+                <center><h1> level statistics in relation to prerequisites </h1></center>
+
+                <div id="div_chart" style="weight:800% ; height:300%">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <script type="text/javascript">
+                        {{ gc_draw(barchart, 'div_chart') }}
+                    </script>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </section>
+    </section>
+    </div>
+    </div>
+
+{% endblock %}

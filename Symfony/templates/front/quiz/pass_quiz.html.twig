@@ -1,0 +1,21 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Pass Quiz{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Pass Quiz</h1>
+        <form action="{{ path('submit_quiz', {'quizId': quiz.id}) }}" method="post">
+            {% for question in questions %}
+                <div class="mb-3">
+                    <label for="answer{{ question.id }}" class="form-label">Question: {{ question.text }}</label>
+                    <input type="text" class="form-control" id="answer{{ question.id }}" name="answers[{{ question.id }}]">
+                </div>
+            {% endfor %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{ path('show_quizzes_front', {'formationId': quiz.formation.Idformation}) }}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

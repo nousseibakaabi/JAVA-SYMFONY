@@ -1,0 +1,29 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Create New Tuteur{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="container-fluid">
+
+    <h1>Create New Tuteur</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {{ form_row(form.date_naisc) }}
+    {{ form_row(form.tlf) }}
+    {{ form_row(form.profession) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.image, { 'required': true }) }}
+
+    {# Affichage des erreurs de validation #}
+    {% for error in form.vars.errors %}
+        <div class="invalid-feedback">{{ error.message }}</div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}

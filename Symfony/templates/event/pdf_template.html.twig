@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Event Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        .event-details {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin: 30px auto;
+            max-width: 600px;
+            color: #333333;
+        }
+        .event-details h1 {
+            font-size: 32px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .event-details p {
+            font-size: 18px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .event-details img {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .event-details .highlight {
+            background-color: #f9e4b7;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="event-details">
+        <!--<p><img src="{#{{ asset('uploads/' ~ event.image) }}" alt="{{ event.nameevent }}#}"></p>-->
+        <h1>Event Name: {{ event.nameevent }}</h1>
+        <p><span class="highlight">Event Date:</span> {{ event.dateevent | date('Y-m-d') }}</p>
+        <p><span class="highlight">Partner's Name:</span> {{ event.idpartnerce.namepartner ?? 'N/A'}}</p>
+        <p><span class="highlight">Establishment's Name:</span> {{ event.idestab ?? 'N/A'}}</p>
+        <p><span class="highlight">Maximum Attendees:</span> {{ event.nbrmax }}</p>
+        <p><span class="highlight">Price:</span> {{ event.prix }}</p>
+        <p><span class="highlight">Description:</span> {{ event.description }}</p>
+    </div>
+</body>
+</html>

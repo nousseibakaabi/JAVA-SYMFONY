@@ -1,0 +1,100 @@
+{% extends 'base-back.html.twig' %}
+{% block stylesheets %}
+
+    <style>
+
+ .alert.alert-dan {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: small;
+    font-weight: bold;
+}
+
+
+    </style>
+{% endblock %}
+
+{% block title %}Home Admin{% endblock %}
+
+{% block body %}
+
+
+<div class="content-body">
+<div class="container-fluid">
+    <!-- row -->
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>Update Discount</h4>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_index_admin') }}">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="{{ path('app_remises') }}">All Discount</a></li>
+                    <li class="breadcrumb-item active"><a href="#">Update Discount</a></li>
+                </ol>
+            </div>
+        </div>
+                <form method="post" novalidate>
+
+        
+{{ form_start (f, {'attr': {'class': 'row tab-content'}})}}
+
+
+<div id="grid-view" class="tab-pane fade col-lg-12 show active">
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Update </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (f.code, 'Code\'s value', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (f.code, {'attr': {'class': 'form-control'}})}}
+                                 {% if f.code.vars.errors|length > 0 %}
+                            <div class="alert alert-dan">
+                                {% for error in f.code.vars.errors %}
+                                    <span>{{ error.message }}</span><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (f.pourcentage, 'Pourcentage\'s value', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (f.pourcentage, {'attr': {'class': 'form-control'}})}}
+                                 {% if f.pourcentage.vars.errors|length > 0 %}
+                            <div class="alert alert-dan">
+                                {% for error in f.pourcentage.vars.errors %}
+                                    <span>{{ error.message }}</span><br>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href ="{{ path ('app_remises')}}" type="reset" class="btn btn-light">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end (f)}}
+                </form>
+
+    </div>
+
+{% endblock %}
+
+
+       

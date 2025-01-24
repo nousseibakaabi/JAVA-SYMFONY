@@ -1,0 +1,142 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Apprenant index{% endblock %}
+
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success" style="align-content: center">
+        {{ message }}
+    </div>
+{% endfor %}
+
+  <div class="container-fluid">
+				    
+				    
+<div class="row page-titles mx-0">
+   <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                    <h4>All Student</h4>
+             </div>
+          </div>
+          <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">All Students</a></li>
+                        </ol>
+                    </div>
+                </div>
+         <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                 <select id="sortingCriteria" class="form-control">
+                                 <option value="Status">Status</option>
+                                 <option value="Training Name">Training Name</option>
+                                 </select>
+                                 </h4>
+                                 <input id="searchInput" type="text" name="query" placeholder="Search..." class="round-input">
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive recentOrderTable">
+                                    <table id="apprenantsTable" class="table verticle-middle table-responsive-md">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                               
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Training Name</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for apprenant in apprenants %}
+                                            <tr>
+                                                <td>{{ apprenant.id }}</td>
+												<td>{{ apprenant.name }}</td>
+                                                <td>{{ apprenant.email }}</td>
+                                              
+
+                                                <td><span class="badge badge-rounded badge-primary">{{ apprenant.statutNiveau }}</span></td>
+                                                <td>{{ apprenant.formationEtudies }}</td>
+                                                <td>
+                                                    <a href="{{ path('app_apprenants_edit', {'id': apprenant.id}) }}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                    <a href="{{ path('app_apprenants_delete', {'id': apprenant.id}) }}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                             {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+const searchInput = document.getElementById('searchInput');
+
+function performSearch() {
+    const query = searchInput.value.trim().toLowerCase(); // Convert the query to lowercase for case-insensitive search
+
+    const rows = document.getElementById('apprenantsTable').getElementsByTagName('tr'); // Get all table rows
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td'); // Get all cells in the row
+
+        let found = false;
+
+        // Iterate through each cell in the row
+        for (let j = 1; j < cells.length - 1; j++) { // Exclude the first and last cell
+            const cell = cells[j];
+            const text = cell.textContent.toLowerCase(); // Get the text content of the cell and convert to lowercase
+
+            if (text.startsWith(query)) { // Check if the cell content contains the search query
+                found = true;
+                break; // Stop searching if a match is found in any cell
+            }
+        }
+
+        // Show or hide the row based on search result
+        row.style.display = found ? '' : 'none';
+    }
+}
+
+searchInput.addEventListener('input', performSearch);
+</script>
+
+<script>
+const sortingCriteria = document.getElementById('sortingCriteria');
+
+function performSort() {
+    const selectedCriterion = sortingCriteria.value; // Get the selected sorting criterion
+
+    const tbody = document.querySelector('#apprenantsTable tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+        const textA = a.querySelector(`td:nth-child(${selectedCriterion === 'Status' ? 2 : 3})`).textContent.toLowerCase();
+        const textB = b.querySelector(`td:nth-child(${selectedCriterion === 'Status' ? 2 : 3})`).textContent.toLowerCase();
+
+        return textA.localeCompare(textB);
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+}
+
+sortingCriteria.addEventListener('change', performSort); // Listen for changes in sorting criteria
+performSort(); // Perform initial sorting
+</script>
+
+{% endblock %}
+
+
+
+

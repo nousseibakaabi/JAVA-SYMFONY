@@ -1,0 +1,123 @@
+{% extends 'base-front.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-..." crossorigin="anonymous" />
+<style>
+.eye-icon-white {
+    color: white;
+}
+
+</style>
+{% endblock %}
+{% block title %}Reservation List{% endblock %}
+
+{% block body %}
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Reservations</h6>
+            <h1 class="mb-5">Mes Reservations</h1>
+        </div>
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
+        <div class="row g-4">
+            {% for reservation in pagination %}
+            <div id="reservation-{{ reservation.id }}" class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item bg-light">
+                    <div class="overflow-hidden">
+                        <img class="img-fluid" src="{{ asset('uploads/' ~ reservation.Imagesrc) }}" alt="{{ reservation.IdEvent.nameEvent }}">
+                    </div>
+                    <div class="text-center p-4">
+                        <h4 class="mb-0">{{ reservation.IdEvent.nameevent }}</h4>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ reservation.IdEvent.dateevent|date('Y-m-d') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Place reserver</th>
+                                    <td>{{ reservation.nbPlaces }}/{{ reservation.IdEvent.nbrmax }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Prix payé</th>
+                                    {% for paiment in paiments %}
+                                        {% if paiment.idRes == reservation %}
+                                            <td>{{ paiment.montant }}</td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ reservation.id }}"><i class="la la-trash"></i></button>
+<a href="{{ path('show_ticket', {'id': reservation.id}) }}" class="btn btn-sm btn-primary"><i class="la la-eye eye-icon-white"></i></a>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+    
+</div>
+<div class="pagination-container">
+    {% include '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' with {'pagination': pagination} %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const confirmation = confirm('Are you sure you want to delete this reservation?');
+
+                if (confirmation) {
+                    const form = document.createElement('form');
+                    form.setAttribute('method', 'post');
+                    form.setAttribute('action', "{{ path('app_delete', {'id': 'REPLACE_ID'}) }}".replace('REPLACE_ID', id));
+
+                    const hiddenField = document.createElement('input');
+                    hiddenField.setAttribute('type', 'hidden');
+                    hiddenField.setAttribute('name', 'id');
+                    hiddenField.setAttribute('value', id);
+
+                    form.appendChild(hiddenField);
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    // Function to print ticket
+    function printTicket(reservationId) {
+        const printContent = document.querySelector(`#reservation-${reservationId}`).innerHTML;
+
+        // Open a new window
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write('<html><head><title>Ticket</title></head><body>');
+
+        // Write the content to the new window
+        printWindow.document.write(printContent);
+        printWindow.document.write('</body></html>');
+
+        // Trigger the print dialog
+        printWindow.print();
+    }
+
+    // Add event listeners to print buttons
+    const printButtons = document.querySelectorAll('.print-btn');
+    printButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const id = this.getAttribute('data-id');
+            printTicket(id);
+        });
+    });
+</script>
+
+{% endblock %}

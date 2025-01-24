@@ -1,0 +1,30 @@
+index:
+    path: /
+    controller: App\Controller\Home::index
+
+generate_qr_code:
+    path: '/generate-qrcode/{id}'
+    controller: App\Controller\EventController::generateQRCode
+    methods: ['GET']  # Specify allowed HTTP methods if needed
+
+# Route pour télécharger le fichier PDF
+download_pdf:
+    path: /download-pdf/{id}
+    controller: App\Controller\EventController::downloadPDF
+    methods: ['GET']
+    # Vous pouvez également spécifier d'autres options comme les exigences de paramètres, les préfixes de chemin, etc.
+ 
+ajax_validation:
+    path: /validate
+    controller: App\Controller\ValidationController::validate
+
+generate_pdf:
+    path: '/reservation/{id}/pdf'
+    controller: 'App\Controller\ReservationController::generatePdf'
+
+app_reservation_delete:
+    path: /reservation/delete/{id}
+    controller: App\Controller\ReservationController::deleteReservation
+    methods: ['POST', 'DELETE']
+    
+

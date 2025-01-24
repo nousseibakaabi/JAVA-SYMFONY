@@ -1,0 +1,327 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Etablissement Index{% endblock %}
+
+{% block body %}
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+M5WMEN9t3/ECx+EZsnyZpT04IQfS+76PVCmYlP" crossorigin="anonymous">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-ZyhL5C3yB8+LYT/cMlklQKsX8ct7K1QrhwzvAkgPuC9KVQND6wrgOMUMzDZIzai0mJL/Mj8pe8mAKxczgVyNw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<meta name="csrf-token" content="your_csrf_token_value_here">
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h6 class="section-title bg-white text-center text-primary px-3">Schools</h6>
+            <h1 class="mb-5">Expert Schools</h1>
+        <div id="divs" class="d-flex align-items-center">
+            <input class="form-control me-2" type="text" id="search" placeholder="Search School..">
+            <a href="" id="idup" class="btn btn-sm btn-outline-primary me-2"><i class="fas fa-arrow-up"></i></a>
+            <a href="" id="iddown" class="btn btn-sm btn-outline-primary"><i class="fas fa-arrow-down"></i></a>
+        </div>
+    </div>
+</div>
+<div id="searchResultsContainer" style="margin-top: 20px;">
+    <div class="container">
+        <div class="row g-4" id="initialResults">
+                {% for etablissement in etablissements %}
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item bg-light">
+                        <div class="overflow-hidden">
+                            <img class="img-fluid" src="{{ asset('uploads/images/' ~ etablissement.imgEtablissement) }}" alt="">
+                        </div>
+                        <div class="text-center p-4">
+                            <h4>
+                                {{ etablissement.nomEtablissement }}
+                                {% if etablissement.isFavoris %}
+                                <i class="fas fa-heart text-danger favorite-icon" data-etablissement-id="{{ etablissement.getIdEtablissement }}"></i>
+                                {% else %}
+                                <i class="far fa-heart text-danger favorite-icon" data-etablissement-id="{{ etablissement.getIdEtablissement }}"></i>
+                                {% endif %}
+                            </h4>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>{{ etablissement.adresseEtablissement }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Type</th>
+                                        <td>{{ etablissement.typeEtablissement }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact</th>
+                                        <td>{{ etablissement.telEtablissement }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Director</th>
+                                        <td>{{ etablissement.directeurEtablissement }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Foundation date</th>
+                                        <td>{{ etablissement.dateFondation ? etablissement.dateFondation|date('Y-m-d') : '' }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="me-2">{{ etablissement.likes }}</span>
+                                    <a class="btn btn-sm btn-success me-2 like-button" href="{{ path('like', {'id': etablissement.getIdEtablissement}) }}"><i class="fas fa-thumbs-up"></i></a>
+                                    <span class="me-2">{{ etablissement.dislikes }}</span>
+                                    <a class="btn btn-sm btn-danger me-2 dislike-button" href="{{ path('dislike', {'id': etablissement.getIdEtablissement}) }}"><i class="fas fa-thumbs-down"></i></a>
+                                    <i class="fas fa-eye"></i> {{ etablissement.views }}
+                                </div>
+                            </div>
+                            <a href="{{ path('details', {'id': etablissement.getIdEtablissement()}) }}" class="btn btn-primary mt-3 certificates-link" data-etablissement-id="{{ etablissement.getIdEtablissement() }}">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div id="searchResults" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#search").keyup(function (e) {
+            var value = $(this).val();
+            if (value.length >= 1 || value.length == 0) {
+                $.ajax({
+                    url: "{{ path('search_etablissement') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#initialResults').empty();
+                            // Parse JSON response
+                            var etablissements = JSON.parse(response);
+                            // Iterate over etablissements and append cards to container
+                            $.each(etablissements, function (i, etablissement) {
+                                var cardHtml = `
+                                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="team-item bg-light">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="{{ asset('uploads/images/') }}${etablissement.imgEtablissement}" alt="">
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <h4>${etablissement.nomEtablissement}</h4>
+                                            <p><strong>Address:</strong> ${etablissement.adresseEtablissement}</p>
+                                            <p><strong>Type:</strong> ${etablissement.typeEtablissement}</p>
+                                            <p><strong>Contact:</strong> ${etablissement.telEtablissement}</p>
+                                            <p><strong>Director:</strong> ${etablissement.directeurEtablissement}</p>
+                                            <p><strong>Foundation date:</strong> ${etablissement.dateFondation ? etablissement.dateFondation.substring(0, 10) : ''}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+                                $('#initialResults').append(cardHtml);
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#initialResults').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#idup").click(function (e) {
+            var value = $("#search").val();
+            var value3 = "ASC";
+
+            $.ajax({
+                url: "{{ path('search_etablissement') }}",
+                type: 'GET',
+                data: {
+                    'searchValue': value,
+                    'orderid': value3
+                },
+                success: function (response) {
+                    // Check if response is not empty
+                    if (response) {
+                        // Clear previous search results
+                        $('#initialResults').empty();
+                        // Parse JSON response
+                        var etablissements = JSON.parse(response);
+                        // Iterate over etablissements and append rows to table
+                        $.each(etablissements, function (i, etablissement) {
+                            var cardHtml = `
+                                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="team-item bg-light">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="{{ asset('uploads/images/') }}${etablissement.imgEtablissement}" alt="">
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <h4>${etablissement.nomEtablissement}</h4>
+                                            <p><strong>Address:</strong> ${etablissement.adresseEtablissement}</p>
+                                            <p><strong>Type:</strong> ${etablissement.typeEtablissement}</p>
+                                            <p><strong>Contact:</strong> ${etablissement.telEtablissement}</p>
+                                            <p><strong>Director:</strong> ${etablissement.directeurEtablissement}</p>
+                                            <p><strong>Foundation date:</strong> ${etablissement.dateFondation ? etablissement.dateFondation.substring(0, 10) : ''}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            $('#initialResults').append(cardHtml);
+                        });
+                    } else {
+                        // Handle empty response
+                        $('#initialResults').fadeIn('fast');
+                    }
+                }
+            });
+            return false;
+        });
+
+        $("#iddown").click(function (e) {
+            var value = $("#search").val();
+            var value3 = "DESC";
+
+            $.ajax({
+                url: "{{ path('search_etablissement') }}",
+                type: 'GET',
+                data: {
+                    'searchValue': value,
+                    'orderid': value3
+                },
+                success: function (response) {
+                    // Check if response is not empty
+                    if (response) {
+                        // Clear previous search results
+                        $('#initialResults').empty();
+                        // Parse JSON response
+                        var etablissements = JSON.parse(response);
+                        // Iterate over etablissements and append rows to table
+                        $.each(etablissements, function (i, etablissement) {
+                            var cardHtml = `
+                                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                                    <div class="team-item bg-light">
+                                        <div class="overflow-hidden">
+                                            <img class="img-fluid" src="{{ asset('uploads/images/') }}${etablissement.imgEtablissement}" alt="">
+                                        </div>
+                                        <div class="text-center p-4">
+                                            <h4>${etablissement.nomEtablissement}</h4>
+                                            <p><strong>Address:</strong> ${etablissement.adresseEtablissement}</p>
+                                            <p><strong>Type:</strong> ${etablissement.typeEtablissement}</p>
+                                            <p><strong>Contact:</strong> ${etablissement.telEtablissement}</p>
+                                            <p><strong>Director:</strong> ${etablissement.directeurEtablissement}</p>
+                                            <p><strong>Foundation date:</strong> ${etablissement.dateFondation ? etablissement.dateFondation.substring(0, 10) : ''}</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            $('#initialResults').append(cardHtml);
+                        });
+                    } else {
+                        // Handle empty response
+                        $('#initialResults').fadeIn('fast');
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var certificatesLinks = document.querySelectorAll('.certificates-link');
+
+            certificatesLinks.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    var etablissementId = link.dataset.etablissementId;
+
+                    // Envoyer une requête AJAX
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('GET', '/details/' + etablissementId); // Utilisation de "etablissementId" ici
+                    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                    xhr.send();
+
+                    // Redirection vers la page des certificats
+                    window.location.href = link.getAttribute('href');
+                });
+            });
+        });
+    </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var favoriteIcons = document.querySelectorAll('.favorite-icon');
+
+        favoriteIcons.forEach(function (icon) {
+            icon.addEventListener('click', function (event) {
+                event.preventDefault();
+                var etablissementId = icon.dataset.etablissementId;
+                var isFavorite = icon.classList.contains('fas');
+
+                // Envoyer une requête AJAX pour ajouter ou supprimer l'établissement des favoris
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/add-to-favorites/' + etablissementId);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            if (response.success) {
+                                // Mettre à jour l'icône du cœur en fonction de la réponse
+                                if (isFavorite) {
+                                    icon.classList.remove('fas');
+                                    icon.classList.add('far');
+                                } else {
+                                    icon.classList.remove('far');
+                                    icon.classList.add('fas');
+                                }
+                            }
+                            // Afficher un message à l'utilisateur (optionnel)
+                            alert(response.success || response.info || response.error);
+                        } else {
+                            // Gérer les erreurs de la requête (optionnel)
+                            alert('Error: ' + xhr.statusText);
+                        }
+                    }
+                };
+                xhr.send();
+            });
+        });
+
+        // Récupérez les établissements favoris de l'utilisateur
+        $.ajax({
+            url: "{{ path('user_favorites') }}", // Endpoint Symfony pour récupérer les favoris de l'utilisateur
+            type: 'GET',
+            success: function (response) {
+                var favorites = response.favorites;
+                // Mettez à jour l'état des cœurs sur la page
+                favorites.forEach(function (favorite) {
+                    var etablissementId = favorite.id;
+                    // Mettez à jour l'état du cœur correspondant à cet établissement
+                    var favoriteIcon = document.querySelector('.favorite-icon[data-etablissement-id="' + etablissementId + '"]');
+                    favoriteIcon.classList.remove('far');
+                    favoriteIcon.classList.add('fas');
+                });
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

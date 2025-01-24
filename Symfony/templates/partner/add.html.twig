@@ -1,0 +1,103 @@
+{% extends 'base-back.html.twig' %}
+{% block stylesheets %}
+<style>
+.error-message{
+    color: red;
+}
+</style>
+{% endblock %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+                <div class="welcome-text">
+                    <h4>{{ title }}</h4>
+                </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_index_admin') }}">Home</a></li>
+                    <li class="breadcrumb-item active"><a href="javascript:void(0);">Participant</a></li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav nav-pills mb-3">
+                </ul>
+            </div>
+        </div>
+    {{ form_start (formPartner, {'attr': {'class': 'row tab-content','novalidate': 'novalidate'}})}}
+
+<div id="grid-view" class="tab-pane fade col-lg-12 show active">
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Basic Info</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (formPartner.namepartner, 'Partner\'s Name', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.namepartner, {'attr': {'class': 'form-control'}})}}
+                                <div class="error-message">{{ form_errors(formPartner.namepartner) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (formPartner.typepartner, 'Partner\'s Type', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.typepartner, {'attr': {'class': 'form-control'}})}}
+                                <div class="error-message">{{ form_errors(formPartner.typepartner) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (formPartner.email, 'Partner\'s Email', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.email, {'attr': {'class': 'form-control'}})}}
+                                <div class="error-message">{{ form_errors(formPartner.email) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (formPartner.tel, 'Partner\'s Phone N°', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.tel, {'attr': {'class': 'form-control'}})}}
+                                <div class="error-message">{{ form_errors(formPartner.tel) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                {{ form_label (formPartner.description, 'Description', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.description, {'attr': {'class': 'form-control', 'rows': 5}})}}
+                                <div class="error-message">{{ form_errors(formPartner.description) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group fallback w-100">
+                                {{ form_label (formPartner.image, 'Image', {'label_attr': {'class': 'form-label'}})}}
+                                {{ form_widget (formPartner.image, {'attr': {'class': 'dropify', 'data-default-file': ''}})}}
+                                <div class="error-message">{{ form_errors(formPartner.image) }}</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-light">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end (formPartner)}}
+    </div>
+</div>
+{% endblock %}

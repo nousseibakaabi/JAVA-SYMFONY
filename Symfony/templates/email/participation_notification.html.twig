@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification de participation</title>
+</head>
+<body>
+    <p>Bonjour,</p>
+    <p>Votre participation a été ajoutée avec succès.</p>
+    <p>Date de début: {{ participation.startdate|date('Y-m-d H:i:s') }}</p>
+    <p>Statut de participation: {{ participation.participationstatus }}</p>
+    <p>Commentaire: {{ participation.comment }}</p>
+    <p>Merci de votre participation !</p>
+</body>
+</html>

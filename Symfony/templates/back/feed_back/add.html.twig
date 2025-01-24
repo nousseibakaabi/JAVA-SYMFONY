@@ -1,0 +1,124 @@
+{% extends 'frontend/basefront.html.twig' %}
+{% block title %}New FeedBack{% endblock %}
+
+{% block body %}
+   <div class="content-body">
+      <div class="container-fluid">
+         <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+               <div class="welcome-text">
+                  <h4>Add FeedBack</h4>
+               </div>
+            </div>
+            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+               <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item active"><a href="javascript:void(0);">FeedBack</a></li>
+                  <li class="breadcrumb-item active"><a href="{{ path('app_apprenants_new') }}">Add FeedBack</a></li>
+               </ol>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-xl-12 col-xxl-12 col-sm-12">
+               <div class="card">
+                  <div class="card-header">
+                     <h5 class="card-title">Add FeedBack</h5>
+                  </div>
+                  <div class="card-body">
+                     <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                           {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+                           <div class="form-group">
+                              <label for="defaultFormControlInput" class="form-label">Name</label>
+                              {{ form_widget(form.name,{'attr':{'class':'form-control'}})}}
+                              {{ form_errors(form.name,{'attr':{'class':'text-danger'}}) }}
+                           </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                           <div class="form-group">
+                              <label for="defaultFormControlInput" class="form-label">Level</label>
+                              {{ form_widget(form.level,{'attr':{'class':'form-control'}})}}
+                              {{ form_errors(form.level,{'attr':{'class':'text-danger'}}) }}
+                           </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                           <div class="form-group">
+                              <label for="defaultFormControlInput" class="form-label">Comment</label>
+                              {{ form_widget(form.comment,{'attr':{'class':'form-control', 'rows': 5}})}}
+                              {{ form_errors(form.comment,{'attr':{'class':'text-danger'}}) }}
+                           </div>
+                        </div>
+                        
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+   <div class="form-group">
+      <label for="defaultFormControlInput" class="form-label">Rating</label>
+       {{ form_widget(form.rating,{'attr':{'class':'form-control'}})}}
+      <div class="rating">
+         {% for i in 1..5 %}
+            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}" class="rating-input">
+            <label for="star{{ i }}" class="fa fa-star"></label>
+         {% endfor %}
+      </div>
+      {{ form_errors(form.rating, {'attr': {'class': 'text-danger'}}) }}
+   </div>
+</div>
+
+                     
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+    <div class="col">
+        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+    </div>
+    {{ form_end(form) }}
+</div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <style>
+      .rating {
+      display: inline-block;
+      unicode-bidi: bidi-override;
+      direction: rtl;
+      }
+      .rating-input {
+      display: none;
+      }
+      .rating-label {
+      color: #ccc;
+      }
+      .rating-input:checked ~ label {
+      color: #ffc107;
+      }
+      .rating:hover > .rating-label,
+      .rating:hover > .rating-input:checked ~ label,
+      .rating:focus > .rating-label,
+      .rating:focus > .rating
+
+   </style>
+
+   <script>
+       // Script to update stars based on rating value
+       document.addEventListener('DOMContentLoaded', function() {
+           const ratingInput = document.querySelector('input[name="rating"]');
+           const stars = document.querySelectorAll('.rating-label');
+
+           ratingInput.addEventListener('change', function() {
+               const ratingValue = parseInt(this.value);
+
+               stars.forEach(function(star, index) {
+                   if (index < ratingValue) {
+                       star.classList.add('fa', 'fa-star');
+                       star.classList.remove('fa-star-o');
+                   } else {
+                      star.classList.add('fa', 'fa-star-o');
+                       star.classList.remove('fa-star');
+                   }
+               });
+           });
+       });
+   </script>
+
+{% endblock %}

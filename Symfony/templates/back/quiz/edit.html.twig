@@ -1,0 +1,25 @@
+{# templates/quiz/edit.html.twig #}
+
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Modifier Quiz{% endblock %}
+
+{% block body %}
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <!-- Page Title and Breadcrumbs -->
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4>Edit Quiz</h4>
+                            {{ include('back/quiz/_form.html.twig', {'button_label': 'Modifier'}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

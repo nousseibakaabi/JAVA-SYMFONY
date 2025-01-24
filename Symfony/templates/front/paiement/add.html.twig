@@ -1,0 +1,531 @@
+{% extends 'base-front.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+
+        .bill-card {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center; /* Center the bill */
+        }
+
+        .bill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #e5e5e5; /* Change to gray */
+            color: #333; /* Change text color */
+            padding: 10px 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .bill-header-title {
+            font-size: 24px;
+        }
+
+        .bill-header-total {
+            font-size: 18px;
+        }
+
+
+        .bill-content-item:nth-child(odd) {
+            background-color: #f0f0f0; /* Alternate row background color */
+        }
+
+        .bill-content-item:last-child {
+            border-bottom: 1px solid #ccc; /* Border between last content item and footer */
+        }
+
+        .bill-content-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .bill-content-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .bill-event-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px; /* Rounded corners for image */
+            margin-right: 10px; /* Adjusted margin */
+        }
+
+        .bill-event-details {
+            text-align: left; /* Align text to the left */
+        }
+
+        .bill-event-name {
+            font-size: 20px;
+            margin-bottom: 3px; /* Adjusted margin */
+        }
+
+        .bill-event-time {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 0; /* Adjusted margin */
+        }
+
+        .bill-content-right {
+            flex-shrink: 0;
+        }
+
+        .bill-event-price {
+            font-size: 18px;
+            text-align: right; /* Align text to the right */
+        }
+
+  .bill-event-priceee {
+            font-size: 18px;
+            text-align: right; /* Align text to the right */
+        }
+        .bill-ticket-number {
+            font-size: 20px;
+        }
+
+        .bill-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+        .bill-footer-total,
+        .bill-footer-amount {
+            font-size: 20px;
+        }
+
+.form-error-message {
+            color: red;
+        }
+        
+       .alert.alert-dan {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-size: small;
+    font-weight: bold;
+}
+
+
+.ticket-controls {
+    display: flex;
+    align-items: center;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 10px; /* Adjust margin for spacing */
+}
+
+
+.ticket-control-btn {
+    background-color: transparent;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin: 0; /* Remove margin between buttons */
+    display: block; /* Display buttons as block elements */
+    text-align: center; /* Center the content horizontally */
+}
+
+/* Additional styles to hide the button outline */
+.ticket-control-btn:focus {
+    outline: none;
+}
+
+.ticket-control-btn::before {
+    content: '';
+}
+
+.ticket-control-btn.increment::before {
+    content: '▲'; /* Arrow pointing up */
+    display: block; /* Display plus sign as block element */
+}
+
+.ticket-control-btn.decrement::before {
+    content: '▼'; /* Arrow pointing down */
+    display: block; /* Display minus sign as block element */
+}
+
+
+.error-message {
+    margin-top: 10px;
+                color: red;
+ /* Add margin between button and error message if present */
+}
+
+.discount-code-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.code-label {
+    margin-bottom: 10px; /* Add space between label and input/button */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    border-radius: 40px 40px 0 40px; 
+    margin-right: 10px; /* Adjust the value as needed to make it more or less round */
+}
+
+.input-group button {
+    border-radius: 0 20px 20px 0; /* Adjust the value as needed to make it more or less round */
+    margin-left: 10px; 
+}
+
+
+.spacer {
+            height: 20px; /* Adjust the height as needed */
+        }
+
+
+    </style>
+{% endblock %}
+{% block title %}Paiement{% endblock %}
+
+{% block body %}
+     <div class="container-xxl py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="bill-card">
+                    <div class="bill-header">
+                        <h3 class="bill-header-title">Billet</h3>
+                        <p class="bill-header-total">Total</p>
+                    </div>
+                    <div class="bill-content">
+                        <div class="bill-content-item">
+                            <div class="bill-content-left">
+                                <img src="{{ asset('uploads/' ~ reservation.Imagesrc) }}" class="bill-event-image">
+                                <div class="bill-event-details">
+                                    <h4 class="bill-event-name">{{ reservation.namee }}</h4>
+                                    <p class="bill-event-time">{{ reservation.IdEvent.dateevent|date }}</p>
+                                </div>
+                            </div>
+                            <div class="bill-content-right">
+                                <p class="bill-event-price">x1</p>
+                                <p class="bill-event-priceee">{{ reservation.Eventprice }} TND</p>
+                            </div>
+                        </div>
+                        <div class="bill-content-item">
+                            <div class="bill-content-right">
+                                <p class="bill-ticket-right">Nombre de tickets</p>
+                            </div>
+                            <div class="bill-content-left">
+                                <div class="ticket-controls">
+                                    <p class="bill-ticket-number" id="ticketNumber">{{ reservation.NbPlaces }}</p>
+                                    <div class="button-container">
+                                        <button type="button" class="ticket-control-btn increment" id="incrementBtn"></button>
+                                        <button type="button" class="ticket-control-btn decrement" id="decrementBtn"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bill-footer">
+                        <p class="bill-footer-total">Montant Total:</p>
+                        <div id="totalAmount" class="bill-footer-amount">
+                            {{ remise }}
+                            {% if remise != 0 %}
+                                {{ (reservation.NbPlaces * reservation.Eventprice) / remise }} TND
+                            {% else %}
+                                {{ reservation.NbPlaces * reservation.Eventprice }} TND
+                            {% endif %}
+                        </div>
+                </div>                        
+                    <form action="{{ path('app_paiement_add', {'reservationId': reservation.id, 'reservationValue': reservationValue}) }}" method="post" class="discount-code-form">
+    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+    <label for="reservationValue" class="code-label">Discount Code : <strong>{{ randomRemise.code }}</strong></label>
+    <div class="input-group">
+        <input type="text" name="reservation_value" id="reservationValue" value="{{ reservationValue }}" placeholder="Enter the code here ..." class="form-control">
+        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+    </div>
+    {% if errorCode %}
+        <div class="error-message">
+            {{ errorCode }}
+        </div>
+    {% endif %}
+</form>
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+                    <button type="button" class="btn btn-sm btn-danger delete-btn" style="color: white; font-size: 14px; width: 100px; height: 30px; display: flex; justify-content: center; align-items: center;" data-id="{{ reservation.id }}">Cancel</button>
+                    <a href="{{ path('app_event') }}" class="btn btn-primary btn-lg mt-3 mb-3" style="color: white; font-size: 14px; width: 100px; height: 30px; display: flex; justify-content: center; align-items: center;" data-id="{{ reservation.id }}">Go Back</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="bill-card">
+                    <div class="bill-header">
+                        <h3 class="bill-header-title">Payment Details</h3>
+                    </div>
+                    <form id="payment-form" method="post"  novalidate>
+                        {{ form_start(f) }}
+                         {% if form_errors(f) %}
+                            <div class="alert alert-dan">
+                                {% for error in form_errors(f) %}
+                                    <p class="form-error-message">{{ error.message }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="card">
+                            <div class="card-header p-0">
+                                <h2 class="mb-0">
+                                    <button class="btn btn-light btn-block text-left p-3 rounded-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <span>Credit card</span>
+                                            <div class="icons">
+                                                <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" width="30">
+                                                <img src="https://img.icons8.com/color/48/000000/visa.png" width="30">
+                                                <img src="https://img.icons8.com/color/48/000000/amex.png" width="30">
+                                                <img src="https://img.icons8.com/color/48/000000/discover.png" width="30">
+                                            </div>
+                                        </div>
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
+                                <div class="card-body payment-card-body">
+                              <div class="form-group">
+                                {{ form_label(f.cardNumber, 'Card Number', {'label_attr': {'class': 'form-label fw-medium'}}) }}
+    {{ form_widget(f.cardNumber, {'attr': {'class': 'form-control', 'placeholder': '1234 5678 9012 3456', 'readonly': 'readonly', 'value': '4242 4242 4242 4242'}}) }}
+                            
+                       </div>
+
+                                    <div class="row mt-3 mb-3">
+                                        <div class="col-md-6">
+                                            {{ form_label(f.expireDate, 'Expiration Date (MM/YYYY)', {'label_attr': {'class': 'form-label fw-medium'}}) }}
+    {{ form_widget(f.expireDate, {'attr': {'class': 'form-control', 'placeholder': 'MM/YYYY', 'readonly': 'readonly', 'value': '31/12/2025'}}) }}
+                                                                         
+                         </div>
+                                        <div class="col-md-6">
+                                            {{ form_label(f.cvv, 'CVV', {'label_attr': {'class': 'form-label fw-medium'}}) }}
+    {{ form_widget(f.cvv, {'attr': {'class': 'form-control', 'placeholder': 'CVV', 'readonly': 'readonly', 'value': '123'}}) }}
+                               
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(f.name, 'Cardholder Name', {'label_attr': {'class': 'form-label fw-medium'}}) }}
+    {{ form_widget(f.name, {'attr': {'class': 'form-control', 'placeholder': 'John Doe', 'readonly': 'readonly', 'value': 'John Doe'}}) }}
+                                   
+                                    </div>
+                                    <div class="form-group">
+                                        {{ form_label(f.phoneNumber, 'Phone Number', {'label_attr': {'class': 'form-label fw-medium'}}) }}
+    {{ form_widget(f.phoneNumber, {'attr': {'class': 'form-control', 'placeholder': '+216XXXXXXXX'}}) }}
+                                   
+                                    </div>
+   
+<button type="submit" class="btn btn-primary btn-lg mt-3 mb-3" style="color: white; font-size: 16px; width: 120px; height: 40px;">Pay Now</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(f) }}
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function() {
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default behavior
+            const id = this.getAttribute('data-id');
+            
+            // Clear bill fields
+            clearBillFields();
+            
+            // Delete reservation
+            deleteReservation(id);
+        });
+    });
+
+    function deleteReservation(id) {
+        fetch(`/reservation/delete/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (response.ok) {
+                // Reload the page or update the reservation list as needed
+            } else {
+                console.log('Failed to delete reservation');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            console.log('An error occurred while deleting the reservation');
+        });
+    }
+
+    // Function to clear bill fields
+    function clearBillFields() {
+                const billEventImage = document.querySelector('.bill-event-image');
+
+        const billEventName = document.querySelector('.bill-event-name');
+        const billEventTime = document.querySelector('.bill-event-time');
+        const billEventPrice = document.querySelector('.bill-event-priceee');
+        const billEventTicket = document.querySelector('.bill-event-price');
+        const billTicketNumber = document.querySelector('.bill-ticket-number');
+        const billTotalAmount = document.querySelector('.bill-footer-amount');
+        const codeR = document.querySelector('.code-label');
+    const reservationValueInput = document.getElementById('reservationValue');
+
+        // Clear text content
+        billEventImage.src = ''; // Clear image source
+        billEventName.textContent = '';
+        billEventTicket.textContent = '';
+        billEventTime.textContent = '';
+        billEventPrice.textContent = '';
+        billTicketNumber.textContent = '';
+        billTotalAmount.textContent = '';
+        codeR.textContent = '';
+reservationValueInput.value = '';
+
+    }
+});
+
+</script>
+
+
+
+<script>
+    // Get elements
+ document.addEventListener("DOMContentLoaded", function() {
+    // Get elements
+    var decrementBtn = document.getElementById('decrementBtn');
+    var incrementBtn = document.getElementById('incrementBtn');
+    var ticketNumberElement = document.getElementById('ticketNumber');
+    var ticketNumber = parseInt(ticketNumberElement.textContent); // Parse the initial value
+    var reservationId = {{ reservation.id }}; // Get the reservation ID from Twig
+    var eventPrice = {{ reservation.Eventprice }}; // Get the event price from Twig
+    var maxPlaces = {{ reservation.idEvent.getNbrmax() }}; // Get the maximum number of places from Twig
+    var totalReservedPlaces = {{ reservation.idEvent.getTotalReservedPlaces() }}; // Get the total reserved places from Twig
+     var availablePlaces = maxPlaces - totalReservedPlaces; // Calculate available places
+     var remise =  {{ remise }}; // Calculate available places
+
+    // Function to update total amount
+    function updateTotalAmount() {
+        var totalAmount = ticketNumber * eventPrice;
+        if(remise != 0)
+        {
+            document.getElementById('totalAmount').textContent = totalAmount - (totalAmount/100) *remise + ' TND';
+        }
+        else
+        {
+            document.getElementById('totalAmount').textContent = totalAmount + ' TND';
+        }
+    }
+
+    // Function to make AJAX request to update number of places in the database
+    function updateNbPlaces(newNbPlaces) {
+        fetch('/update-nb-places', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                reservationId: reservationId,
+                newNbPlaces: newNbPlaces, // Send the new number of places
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the total amount displayed based on the response
+            if(remise != 0)
+            {
+                document.getElementById('totalAmount').textContent = updatedTotalAmount - (updatedTotalAmount/100) *remise + ' TND';
+            }
+            else
+            {
+                document.getElementById('totalAmount').textContent = updatedTotalAmount + ' TND';
+            }
+
+            // Update total reserved places and available places
+            totalReservedPlaces = data.totalReservedPlaces;
+            availablePlaces = maxPlaces - totalReservedPlaces;
+
+            // Update visibility of increment button
+            updateIncrementButtonVisibility();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    
+    // Function to update visibility of increment button
+   // Function to update visibility of increment button
+function updateIncrementButtonVisibility() {
+    if (availablePlaces <= 0 || ticketNumber >= maxPlaces) {
+        incrementBtn.classList.add('disabled'); // Add 'disabled' class to disable the button
+    } else {
+        incrementBtn.classList.remove('disabled'); // Remove 'disabled' class to enable the button
+    }
+}
+
+
+    // Decrement function
+    decrementBtn.addEventListener('click', function() {
+        if (ticketNumber > 1) { // Ensure ticket number doesn't go below 1
+            ticketNumber--;
+            ticketNumberElement.textContent = ticketNumber;
+            updateTotalAmount(); // Update total amount
+
+            // Make AJAX request to update number of places in the database
+            updateNbPlaces(ticketNumber);
+        }
+    });
+
+    // Increment function
+    incrementBtn.addEventListener('click', function() {
+        if (availablePlaces > 0 && ticketNumber < maxPlaces) { // Ensure available places are not exhausted and max places not reached
+            ticketNumber++;
+            ticketNumberElement.textContent = ticketNumber;
+            updateTotalAmount(); // Update total amount
+
+            // Make AJAX request to update number of places in the database
+            updateNbPlaces(ticketNumber);
+        }
+    });
+
+    // Initial update of total amount and increment button visibility
+    updateTotalAmount();
+    updateIncrementButtonVisibility();
+});
+
+
+
+</script>
+
+{% endblock %}

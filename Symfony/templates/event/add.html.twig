@@ -1,0 +1,115 @@
+{% extends 'base-back.html.twig' %}
+{% block stylesheets %}
+<style>
+.error-message{
+    color: red;
+}
+</style>
+{% endblock %}
+{% block title %}{{ title }}{% endblock %}
+{% block body %}
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>{{ title }}</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ path('app_index_admin') }}">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Events</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="nav nav-pills mb-3">
+                    </ul>
+                </div>
+            </div>
+            {{ form_start (formEvent, {'attr': {'class': 'row tab-content','id': 'myForm','novalidate': 'novalidate'}})}}
+
+            <div id="grid-view" class="tab-pane fade col-lg-12 show active">
+                <div class="row">
+                    <div class="col-xl-12 col-xxl-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Ajouter event</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.idpartnerce, 'Partner\'s ID', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.idpartnerce, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.idpartnerce) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.idestab, 'Establishment\'s ID', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.idestab, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.idestab) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.nameevent, 'Event\'s Name', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.nameevent, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.nameevent) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.dateevent, 'Event\'s Date', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.dateevent, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.dateevent) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.nbrmax, 'Nbre Max', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.nbrmax, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.nbrmax) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.prix, 'Price', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.prix, {'attr': {'class': 'form-control'}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.prix) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            {{ form_label (formEvent.description, 'Description', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.description, {'attr': {'class': 'form-control', 'rows': 5}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.description) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group fallback w-100">
+                                            {{ form_label (formEvent.image, 'Image', {'label_attr': {'class': 'form-label'}})}}
+                                            {{ form_widget (formEvent.image, {'attr': {'class': 'dropify', 'data-default-file': ''}})}}
+                                            <div class="error-message">{{ form_errors(formEvent.image) }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="reset" class="btn btn-light">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_end (formEvent)}}
+        </div>
+    </div>
+{% endblock %}

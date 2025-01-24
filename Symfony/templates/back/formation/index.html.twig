@@ -1,0 +1,253 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Formation List{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+{% block body %}
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Formation List</h4>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ path('app_formation_new') }}" class="btn btn-success">Create New</a>
+
+                            <div class="table-responsive">
+                                <div id="divs">
+                                    <input class="form-control" type="text" id="search" placeholder="🔍">
+                                    <a style="color:#FF0000;" class="tg-btn" href="" id="idup">UP ⬆️</a>
+                                    <a style="color:#25DD28;" class="tg-btn" href="" id="iddown">DOWN ⬇️</a>
+                                </div>
+
+                                <table class="table table-sm mb-0 table-striped" id="t">
+                                    <thead>
+                                    <tr>
+                                        <th class="px-5 py-3">Id</th>
+                                        <th class="py-3">Title</th>
+                                        <th class="py-3">Level</th>
+                                        <th class="py-3">Category</th>
+                                        <th class="py-3">Start Date</th>
+                                        <th class="py-3">End Date</th>
+                                        <th class="py-3">Link</th>
+                                        <th class="py-3">PDF</th>
+                                        <th class="py-3">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="all">
+                                    {% for formationn in formationns %}
+                                        <tr>
+                                            <td>{{ formationn.Idformation }}</td>
+                                            <td>{{ formationn.getTitre() }}</td>
+                                            <td>{{ formationn.Niveau.name }}</td>
+                                            <td>{{ formationn.getCategorie() }}</td>
+                                            <td>{{ formationn.getDateD() ? formationn.getDateD()|date('Y-m-d') : '' }}</td>
+                                            <td>{{ formationn.getDateF() ? formationn.getDateF()|date('Y-m-d') : '' }}</td>
+                                            <td><a href="{{ formationn.getLien() }}" target="_blank">{{ formationn.getLien() }}</a></td>
+                                            <td>
+                                                {% if formationn.getPdfFilename() %}
+                                                    <a href="{{ path('open_pdf', {'filename': formationn.getPdfFilename()}) }}" target="_blank">
+                                                        <i class="far fa-eye"></i> Ouvrir PDF
+                                                        <i class="far fa-file-pdf"></i> <!-- Font Awesome PDF icon -->
+                                                    </a>
+                                                {% else %}
+                                                    <p>PDF indisponible</p>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('show_quizzes', {'formationId': formationn.Idformation}) }}" class="btn btn-sm btn-primary" title="Show Quizzes">
+                                                    Show Quizzes
+                                                </a>
+                                                <a href="{{ path('app_formation_edit', {'Idformation': formationn.Idformation}) }}" class="btn btn-sm btn-info" title="Edit">
+                                                    <i class="la la-pencil"></i>
+                                                </a>
+                                                <form action="{{ path('app_formation_delete', {'Idformation': formationn.Idformation}) }}" method="post" class="d-inline">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ formationn.Idformation) }}">
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this formation?')" title="Delete">
+                                                        <i class="la la-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="8" class="text-center">No records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tbody id="search"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#search").keyup(function (e) {
+                var value = $(this).val();
+                if (value.length >= 1 || value.length == 0) {
+                    $.ajax({
+                        url: "{{ path('search_formation') }}",
+                        type: 'GET',
+                        data: {
+                            'searchValue': value
+                        },
+                        success: function (response) {
+                            // Check if response is not empty
+                            if (response) {
+                                // Clear previous search results
+                                $('#t tbody#search').empty();
+                                // Parse JSON response
+                                var formations = JSON.parse(response);
+                                // Iterate over formations and append rows to table
+                                $.each(formations, function (i, formation) {
+                                    $('#t tbody#all').hide();
+                                    $('#t tbody#search').append(
+                                        '<tr class="btn-reveal-trigger">' +
+                                        '<td>' + formation.id_formation + '</td>' +
+                                        '<td>' + formation.titre + '</td>' +
+                                        '<td>' + formation.niveau.name + '</td>' +
+                                        '<td>' + formation.categorie + '</td>' +
+                                        '<td>' + (formation.date_d ? formation.date_d.substring(0, 10) : '') + '</td>' +
+                                        '<td>' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</td>' +
+                                        '<td><a href="' + formation.lien + '" target="_blank">' + formation.lien + '</a></td>' +
+                                        '<td>' +
+                                        (formation.pdfFilename ? '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank"><i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i></a>' : '<p>PDF indisponible</p>') +
+                                        '</td>' +
+                                        '<td>' +
+                                        '<a href="/quizzes/show_quizzes/' + formation.id_formation + '" class="btn btn-sm btn-primary" title="Show Quizzes">Show Quizzes</a>' +
+                                        '<a href="/formation/edit/' + formation.id_formation + '" class="btn btn-sm btn-info" title="Edit"><i class="la la-pencil"></i></a>' +
+                                        '<form action="/formation/delete/' + formation.id_formation + '" method="post" class="d-inline"><input type="hidden" name="_token" ><button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete"><i class="la la-trash"></i></button></form>' +
+                                        '</td>' +
+                                        '</tr>'
+                                    );
+                                });
+                            } else {
+                                // Handle empty response
+                                $('#t tbody#all').show();
+                                $('#t tbody#search').empty();
+                                $('#t tbody#search').fadeIn('fast');
+                            }
+                        }
+                    });
+                    return false;
+                }
+            });
+
+
+            $("#idup").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "ASC";
+
+                $.ajax({
+                    url: "{{ path('search_formation') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t tbody#search').empty();
+                            // Parse JSON response
+                            var formations = JSON.parse(response);
+                            $.each(formations, function (i, formation) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr class="btn-reveal-trigger">' +
+                                    '<td>' + formation.id_formation + '</td>' +
+                                    '<td>' + formation.titre + '</td>' +
+                                    '<td>' + formation.niveau.name + '</td>' +
+                                    '<td>' + formation.categorie + '</td>' +
+                                    '<td>' + (formation.date_d ? formation.date_d.substring(0, 10) : '') + '</td>' +
+                                    '<td>' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</td>' +
+                                    '<td><a href="' + formation.lien + '" target="_blank">' + formation.lien + '</a></td>' +
+                                    '<td>' +
+                                    (formation.pdfFilename ? '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank"><i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i></a>' : '<p>PDF indisponible</p>') +
+                                    '</td>' +
+                                    '<td>' +
+                                    '<a href="/quizzes/show_quizzes/' + formation.id_formation + '" class="btn btn-sm btn-primary" title="Show Quizzes">Show Quizzes</a>' +
+                                    '<a href="/formation/edit/' + formation.id_formation + '" class="btn btn-sm btn-info" title="Edit"><i class="la la-pencil"></i></a>' +
+                                    '<form action="/formation/delete/' + formation.id_formation + '" method="post" class="d-inline"><input type="hidden" name="_token" ><button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete"><i class="la la-trash"></i></button></form>' +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+
+            $("#iddown").click(function (e) {
+                var value = $("#search").val();
+                var value3 = "DESC";
+
+                $.ajax({
+                    url: "{{ path('search_formation') }}",
+                    type: 'GET',
+                    data: {
+                        'searchValue': value,
+                        'orderid': value3
+                    },
+                    success: function (response) {
+                        // Check if response is not empty
+                        if (response) {
+                            // Clear previous search results
+                            $('#t tbody#search').empty();
+                            var formations = JSON.parse(response);
+                            $.each(formations, function (i, formation) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append(
+                                    '<tr class="btn-reveal-trigger">' +
+                                    '<td>' + formation.id_formation + '</td>' +
+                                    '<td>' + formation.titre + '</td>' +
+                                    '<td>' + formation.niveau.name + '</td>' +
+                                    '<td>' + formation.categorie + '</td>' +
+                                    '<td>' + (formation.date_d ? formation.date_d.substring(0, 10) : '') + '</td>' +
+                                    '<td>' + (formation.date_f ? formation.date_f.substring(0, 10) : '') + '</td>' +
+                                    '<td><a href="' + formation.lien + '" target="_blank">' + formation.lien + '</a></td>' +
+                                    '<td>' +
+                                    (formation.pdfFilename ? '<a href="/formation/open-pdf/' + formation.pdfFilename + '" target="_blank"><i class="far fa-eye"></i> Ouvrir PDF<i class="far fa-file-pdf"></i></a>' : '<p>PDF indisponible</p>') +
+                                    '</td>' +
+                                    '<td>' +
+                                    '<a href="/quizzes/show_quizzes/' + formation.id_formation + '" class="btn btn-sm btn-primary" title="Show Quizzes">Show Quizzes</a>' +
+                                    '<a href="/formation/edit/' + formation.id_formation + '" class="btn btn-sm btn-info" title="Edit"><i class="la la-pencil"></i></a>' +
+                                    '<form action="/formation/delete/' + formation.id_formation + '" method="post" class="d-inline"><input type="hidden" name="_token" ><button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(' + "'Are you sure you want to delete this formation?'" + ')" title="Delete"><i class="la la-trash"></i></button></form>' +
+                                    '</td>' +
+                                    '</tr>'
+                                );
+                            });
+                        } else {
+                            // Handle empty response
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+                        }
+                    }
+                });
+                return false;
+
+            });
+        });
+    </script>
+{% endblock %}

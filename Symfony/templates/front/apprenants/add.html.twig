@@ -1,0 +1,88 @@
+{% extends 'backend/Dashboard.html.twig' %}
+{% block title %}New Student{% endblock %}
+
+{% block body %}
+   <div class="content-body">
+       <!-- row -->
+       <div class="container-fluid">
+           <div class="row page-titles mx-0">
+               <div class="col-sm-6 p-md-0">
+                   <div class="welcome-text">
+                       <h4>Add Student</h4>
+                   </div>
+               </div>
+               <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                   <ol class="breadcrumb">
+                       <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                       <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
+                       <li class="breadcrumb-item active"><a href="{{ path('app_apprenants_new') }}">Add Student</a></li>
+                   </ol>
+               </div>
+           </div>
+           <div class="row">
+               <div class="col-xl-12 col-xxl-12 col-sm-12">
+                   <div class="card">
+                       <div class="card-header">
+                           <h5 class="card-title">Add Student</h5>
+                       </div>
+                       <div class="card-body">
+                           <div class="row">
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                   {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+                                   <div class="form-group">
+                                       <label for="defaultFormControlInput" class="form-label">Name</label>
+                                       {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                                       {% for error in form.name.vars.errors %}
+                                           <div class="alert alert-danger">{{ error.message }}</div>
+                                       {% endfor %}
+                                   </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                   <div class="form-group">
+                                       <label for="defaultFormControlInput" class="form-label">Email</label>
+                                       {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                                       {% for error in form.email.vars.errors %}
+                                           <div class="alert alert-danger">{{ error.message }}</div>
+                                       {% endfor %}
+                                   </div>
+                               </div>
+                             
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                   <div class="form-group">
+                                       <label for="defaultFormControlInput" class="form-label">Status</label>
+                                       {{ form_widget(form.statutNiveau, {'attr': {'class': 'form-control'}}) }}
+                                       {% for error in form.statutNiveau.vars.errors %}
+                                           <div class="alert alert-danger">{{ error.message }}</div>
+                                       {% endfor %}
+                                   </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                   <div class="form-group">
+                                       <label for="exampleFormControlTextarea1" class="form-label">Training Name</label>
+                                       {{ form_widget(form.formationEtudies, {'attr': {'class': 'form-control'}}) }}
+                                       {% for error in form.formationEtudies.vars.errors %}
+                                           <div class="alert alert-danger">{{ error.message }}</div>
+                                       {% endfor %}
+                                   </div>
+                               </div>
+                               <div class="col-lg-6 col-md-6 col-sm-12">
+                                   <div class="form-group">
+                                       <label for="defaultFormControlInput" class="form-label">Picture</label>
+                                       {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                                       {% for error in form.image.vars.errors %}
+                                           <div class="alert alert-danger">{{ error.message }}</div>
+                                       {% endfor %}
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col">
+                               {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                           </div>
+                           {{ form_end(form) }}
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Feedback index{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+    <h1>Feedback index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Level</th>
+                <th>Comment</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for feedback in feedback %}
+            <tr>
+                <td>{{ feedback.id }}</td>
+                <td>{{ feedback.name }}</td>
+                <td>{{ feedback.level }}</td>
+                <td>{{ feedback.comment }}</td>
+                <td>{{ feedback.rating }}</td>
+                <td>
+                    <a href="{{ path('app_feed_back_show', {'id': feedback.id}) }}">show</a>
+                    <a href="{{ path('app_feed_back_edit', {'id': feedback.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_feed_back_new') }}">Create new</a>
+    </div>
+</div>
+{% endblock %}

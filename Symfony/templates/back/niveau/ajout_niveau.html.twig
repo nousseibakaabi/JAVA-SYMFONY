@@ -1,0 +1,36 @@
+
+<html lang="fr">
+<body>
+    <div class="table-bordered" style="border-color: #ffffff " >
+    <table  width="650" border="0" cellspacing="0" cellpadding="0" class="table-bordered" >
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Prerequisites</th>
+            <th>Duree</th>
+            <th>Number of training</th>
+            <th>Certificate</th>
+            <th>Description</th>
+              <th>Picture</th>
+        </tr>
+        </thead>
+        {% for niveau in niveaux %}
+        <tr>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;" >{{ niveau.id }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{  niveau.name }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.prerequis }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.nbformation }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.duree }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.description }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.certificat }}</td>
+            <td class="box1" bgcolor="#ffffff" align="center" style="padding:45px 30px;">{{ niveau.image }}" alt="" width="100" height="100" style="margin: 20px"></td>
+            
+            </td>
+        </tr>
+        {% endfor %}
+
+
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Ajouter Cour{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Ajouter Cour</h1>
+
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title">Ajouter Cour</h5>
+            </div>
+            <div class="card-body">
+                {{ include('front/formation/_form.html.twig', {'button_label': 'Ajouter'}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

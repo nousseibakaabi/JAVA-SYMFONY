@@ -1,0 +1,101 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}List of Levels{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/votre_script.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+<!-- Header Start -->
+    <div class="container-fluid bg-primary py-5 mb-5 page-header">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1 class="display-3 text-white animated slideInDown">Levels</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-center">
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                            <li class="breadcrumb-item text-white active" aria-current="page">Levels</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+ <header class="major">
+                <script type="text/javascript">
+                    function imprimer_page(){
+                        window.print();
+                    }
+                </script>
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Levels</h6>
+                <h1 class="mb-5">Our levels</h1>
+                        <form>
+                            <input id="impression" class="js-programmatic-set-val btn btn-outline-primary mr-1 mb-1s" name="impression" type="button" onclick="imprimer_page()" value="Print this page" />
+                        </form>
+            </div>
+            
+    <div class="row">
+        {% for niveau in niveaux %}
+            <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="{{ asset('uploads/images/' ~ niveau.image) }}" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">{{ niveau.name }}</a></h4>
+                        <ul class="list-group mb-3 list-group-flush">
+                            <li class="list-group-item px-0 border-top-0 d-flex justify-content-between">
+                                <span class="mb-0 text-muted">{{ niveau.prerequis }}</span>
+                                <a href="javascript:void(0);">
+                                    <i class="la la-heart-o mr-1"></i>
+                                    <strong>{{ niveau.nbformation }}</strong>
+                                </a>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span class="mb-0">Duration :</span><strong>{{ niveau.duree }}</strong>
+                            </li>
+                            <li class="list-group-item px-0">
+                                <span class="mb-0">Description :</span><br>
+                                <strong>{{ niveau.description }}</strong>
+                            </li>
+                            <li class="list-group-item px-0 d-flex justify-content-between">
+                                <span><i class="fa fa-graduation-cap text-primary mr-2"></i>Certificat :</span>
+                                <strong>{{ niveau.certificat.NomCertificat }}</strong>
+                            </li>
+                        </ul>
+                        <a href="{{ path('app_participation1_new') }}" class="btn btn-primary">Join Now</a>
+                    </div>
+                </div>
+                
+            </div>
+        {% endfor %}
+        <nav aria-label="Page navigation example" style="align-content: center">
+                    <ul class="pagination justify-content-center">
+                        {{ knp_pagination_render(niveaux) }}
+                    </ul>
+                </nav>
+    </div>
+     <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/6226c68aa34c24564129f17f/1ftjnf3t7';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
+{% endblock %}

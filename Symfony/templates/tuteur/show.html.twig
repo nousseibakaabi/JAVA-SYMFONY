@@ -1,0 +1,62 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Tuteur Details{% endblock %}
+
+{% block body %}
+<div class="content-body">
+    <div class="container-fluid">
+
+    <h1>Tuteur Details</h1>
+
+     </div>
+             <div class="text-center mt-4">
+                <a href="{{ path('app_tuteur_new') }}" class="btn btn-primary">Add New Tuteur</a>
+            </div>
+{% for tuteur in tuteur %}
+
+    
+    <dl class="row">
+        
+
+        <dt class="col-sm-3">Name:</dt>
+        <dd class="col-sm-9">{{ tuteur.nom }}</dd>
+
+        <dt class="col-sm-3">First Name:</dt>
+        <dd class="col-sm-9">{{ tuteur.prenom }}</dd>
+
+        <dt class="col-sm-3">Date Of Birth:</dt>
+        <dd class="col-sm-9">{{ tuteur.dateNaisc ? tuteur.dateNaisc|date('Y-m-d') : '' }}</dd>
+
+        <dt class="col-sm-3">Phone Number:</dt>
+        <dd class="col-sm-9">{{ tuteur.tlf }}</dd>
+
+        <dt class="col-sm-3">Profession:</dt>
+        <dd class="col-sm-9">{{ tuteur.profession }}</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">{{ tuteur.email }}</dd>
+
+        <dt class="col-sm-3">Image:</dt>
+        <dd class="col-sm-9">
+    {% if tuteur.image %}
+                <img src="{{ asset(tuteur.image) }}" class="img-fluid">
+
+            {% endif %}   
+
+        </dd>
+    </dl>
+     <div class="text-center">
+                                    <a href="{{ path('app_tuteur_edit', {'id_tuteur': tuteur.id_tuteur}) }}" class="btn btn-sm btn-info" title="Modifier">
+                                        <i class="la la-pencil"></i>
+                                    </a>
+                                    <form action="{{ path('app_tuteur_delete', {'id_tuteur': tuteur.id_tuteur}) }}" method="post" class="d-inline">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tuteur.id_tuteur) }}">
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce tuteur ?')" title="Supprimer">
+                                            <i class="la la-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

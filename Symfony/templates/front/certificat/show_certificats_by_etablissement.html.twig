@@ -1,0 +1,80 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Certificats pour {{ etablissement.nomEtablissement }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center mt-5 mb-4">{{ etablissement.nomEtablissement }}</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="image-container">
+                <img class="img-fluid mb-4 rounded" src="{{ asset('uploads/images/' ~ etablissement.imgEtablissement) }}" alt="">
+            </div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ etablissement.adresseEtablissement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ etablissement.typeEtablissement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td>{{ etablissement.telEtablissement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Director</th>
+                        <td>{{ etablissement.directeurEtablissement }}</td>
+                    </tr>
+                    <tr>
+                        <th>Foundation date</th>
+                        <td>{{ etablissement.dateFondation ? etablissement.dateFondation|date('Y-m-d') : '' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+                <div class="text-center"> <!-- Centrer le contenu -->
+        {{ include('front/etablissement/mapf.html.twig') }} <!-- Ajouter la classe text-center -->
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    </div>
+    <h1 class="text-center mt-5 mb-4">Certificates for {{ etablissement.nomEtablissement }}</h1>
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            {% if certificats is not empty %}
+                <div class="list-group">
+                    {% for certificat in certificats %}
+                        <div class="list-group-item">
+                            <h4 class="mb-2">{{ certificat.nomCertificat }}</h4>
+                            <p><strong>Field:</strong> {{ certificat.domaineCertificat }}</p>
+                            <p><strong>Level:</strong> {{ certificat.niveau }}</p>
+                            <p><strong>Delivration Date:</strong> {{ certificat.dateObtentionCertificat|date('Y-m-d') }}</p>
+                            <!-- Add additional certificat details as needed -->
+                            <right>
+                                <a href="{{ path('certificat_detail', {'id': certificat.idCertificat}) }}">See Certificate</a>
+                            </right>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    Aucun certificat trouvé pour cet établissement.
+                </div>
+            {% endif %}
+            <div class="text-center"> <!-- Wrapper for centering buttons -->
+                <a href="{{ path('app_etablissement_index') }}" class="btn btn-primary mt-3">Retourner</a>
+                <a href="{{ path('generate_pdf_etab', {'idEtablissement': etablissement.idEtablissement}) }}" class="btn btn-primary mt-3" id="generate-pdf-btn">
+                    <i class="far fa-file-pdf"></i> PDF
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

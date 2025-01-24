@@ -1,0 +1,288 @@
+{% extends 'base-front.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100vh;
+            display: grid;
+            font-family: "Staatliches", cursive;
+            background: #FFFFFF;
+            color: black;
+            font-size: 14px;
+            letter-spacing: 0.1em;
+        }
+        .spacer {
+            height: 20px; /* Adjust the height as needed */
+        }
+
+        .ticket {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: auto;
+            display: flex;
+        }
+
+        .left {
+            display: flex;
+        }
+
+        .image {
+            height: 250px;
+            width: 250px;
+            background-size: cover; /* or 'contain' */
+            background-position: center;
+            opacity: 0.85;
+        }
+        .admit-one {
+            position: absolute;
+            color: darkgray;
+            height: 250px;
+            padding: 0 10px;
+            letter-spacing: 0.15em;
+            display: flex;
+            text-align: center;
+            justify-content: space-around;
+            writing-mode: vertical-rl;
+            transform: rotate(-180deg);
+        }
+
+        .admit-one span:nth-child(2) {
+            color: white;
+            font-weight: 700;
+        }
+
+        .left .ticket-number {
+            height: 250px;
+            width: 250px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding: 5px;
+        }
+
+        .ticket-info {
+            padding: 10px 30px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date {
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            padding: 5px 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        .date span {
+            width: 100px;
+        }
+
+        .date span:first-child {
+            text-align: left;
+        }
+
+        .date span:last-child {
+            text-align: right;
+        }
+
+        .date .june-29 {
+            color: #d83565;
+            font-size: 20px;
+        }
+
+        .show-name {
+            font-size: 32px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #d83565;
+        }
+
+        .show-nameUSER h1 {
+            font-size: 20px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #4a437e;
+        }
+        .show-nameUSER p {
+            font-size: 15px;
+            font-family: "Nanum Pen Script", cursive;
+            color: #4a437e;
+        }
+
+        .show-name h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #4a437e;
+        }
+
+        .time {
+            padding: 10px 0;
+            color: #4a437e;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .time span {
+            font-weight: 400;
+            color: gray;
+        }
+
+        .left .time {
+            font-size: 16px;
+        }
+
+        .location {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            padding-top: 8px;
+            border-top: 1px solid gray;
+        }
+
+        .location .separator {
+            font-size: 20px;
+        }
+
+        .right {
+            width: 180px;
+            border-left: 1px dashed #404040;
+        }
+
+        .right .admit-one {
+            color: darkgray;
+        }
+
+        .right .admit-one span:nth-child(2) {
+            color: gray;
+        }
+
+        .right .right-info-container {
+            height: 250px;
+            padding: 10px 10px 10px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .right .show-name h1 {
+            font-size: 18px;
+        }
+
+        .barcode {
+            height: 100px;
+        }
+
+        .barcode img {
+            height: 100%;
+        }
+
+        .right .ticket-number {
+            color: gray;
+        }
+
+        .form-error-message {
+            color: red;
+        }
+        
+        .alert.alert-dan {
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: small;
+            font-weight: bold;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+ <!-- Ajouter les liens vers les fichiers CSS et JavaScript d'AddToAny -->
+    <link rel="stylesheet" type="text/css" href="//static.addtoany.com/menu/page.css">
+    <script async src="//static.addtoany.com/menu/page.js"></script>
+    <div class="spacer">
+    <a href="{{ path('app_event') }}" class="btn btn-primary back-btn" style="position: absolute; top: 100px; left: 20px;">
+        <i class="fas fa-arrow-left"></i> <!-- Assuming you're using Font Awesome for icons -->
+    </a></div>
+
+
+    <div class="spacer"></div>
+        <div class="spacer"></div>
+
+    <div class="ticket created-by-anniedotexe"> <!-- Add ID here -->
+        <div class="left">
+        
+            <div class="image" style="background-image: url('{{ asset('uploads/' ~ event.image) }}');">
+            </div>
+            <div class="ticket-info">
+                <p class="date">
+                    <span>{{ event.dateevent|date('l') }}</span>
+                    <span class="june-29">{{ event.dateevent|date('F jS') }}</span>
+                    <span>{{ event.dateevent|date('Y') }}</span>
+                </p>
+                <div class="show-name">
+                    <h1>{{ event.nameevent }}</h1>
+                </div>
+                <div class="show-nameUSER">
+                    <h1>Max Participants: <strong>{{ event.nbrmax }}</strong></h1>
+                    <h1>Price Per Person: <strong>{{ event.prix }} TND</strong></h1>
+                    <h1>Description: <strong>{{ event.description }}</strong></h1>
+                </div>
+                    
+            </div>
+        </div>
+        <div class="right">
+            
+            <div class="right-info-container">
+                <div class="barcode">
+                    <img src="{{ qrCodeUrl }}" alt="QR code">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<h1>Page à partager</h1>
+<p>Contenu de votre page.</p>
+<!-- Ajouter le code de partage d'AddToAny -->
+    <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+        <a class="a2a_dd" href="https://www.addtoany.com/share" data-a2a-title="Votre texte par défaut">
+            <img src="{{ asset('icons/social media/plus.png') }}" alt="Share">
+        </a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http://192.168.1.18:8000/partner/&quote=bonjour">
+            <img src="{{ asset('icons/social media/facebook.png') }}" alt="Facebook">
+        </a>
+        <a href="https://twitter.com/intent/tweet?url=http://192.168.1.18:8000/partner/&text=bonjour">
+            <img src="{{ asset('icons/social media/twitter.png') }}" alt="Twitter">
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=http://192.168.1.18:8000/partner/&summary=bonjour">
+            <img src="{{ asset('icons/social media/linkedin.png') }}" alt="Linkedin">
+        </a>
+        <!-- Ajoutez d'autres boutons de réseaux sociaux selon vos besoins -->
+    </div>
+    <script>
+        // Initialisation d'AddToAny
+        addtoany.init();
+    </script>
+{% endblock %}

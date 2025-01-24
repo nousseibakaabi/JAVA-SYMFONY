@@ -1,0 +1,92 @@
+{% block body %}
+    <h1 align="center" style="color:green;">Level</h1>
+    <hr>
+    <div class="content" >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-1">
+                    <div class="card-deck">
+                        <div class="card-header card-header-primary">
+                            <h1 align="center" style="color:blue;">List of Levels</h1>
+
+                        </div>
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                            <style>
+                                #customers {
+                                    font-family: Arial, Helvetica, sans-serif;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+
+                                #customers td, #customers th {
+                                    border: 1px solid #ddd;
+                                    padding: 8px;
+                                }
+
+                                #customers tr:nth-child(even) {
+                                    background-color: #f2f2f2;
+                                }
+
+                                #customers tr:hover {
+                                    background-color: #ddd;
+                                }
+
+                                #customers th {
+                                    padding-top: 12px;
+                                    padding-bottom: 12px;
+                                    text-align: left;
+                                    background-color: royalblue;
+                                    color: white;
+                                }
+                            </style>
+                        </head>
+                        </html>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="" id="customers" border="2px">
+        <thead>
+        <tr>
+
+
+            <th style="text-align: center":>Name</th>
+            <th style="text-align: center">Prerequisites</th>
+            <th style="text-align: center">Duree</th>
+            <th style="text-align: center">Number of training courses</th>
+            <th style="text-align: center">Certificat</th>
+             <th style="text-align: center">Description</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for niveau in niveaux %}
+                            <tr>
+                               
+                                <td>{{ niveau.name }}</td>
+                                <td>{{ niveau.prerequis }}</td>
+                                <td>{{ niveau.duree }}</td>
+                                <td>{{ niveau.nbformation }}</td>
+                                <td>{{ niveau.certificat.NomCertificat }}</td>
+                                <td>{{ niveau.description | raw }}</td>
+                              
+                               
+
+                           </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+    </div>
+    </div>
+{% endblock %}

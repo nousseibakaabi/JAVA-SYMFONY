@@ -1,0 +1,32 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Quizzes for {{ formation.getTitre() }}{% endblock %}
+
+{% block body %}
+    <div class="container py-5">
+        <h1 class="text-center mb-4">Quizzes for {{ formation.getTitre() }}</h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for quiz in quizzes %}
+                                <li class="list-group-item">
+                                    <h5 class="mb-1">Quiz Number: {{ loop.index }}</h5>
+                                    <div class="text-center">
+                                        <a href="{{ path('quiz_pass', {'quizId': quiz.id}) }}" class="btn btn-primary">Pass Quiz</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item">No quizzes found</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a href="{{ path('app_formation_index_front') }}" class="btn btn-primary">Back</a>
+        </div>
+    </div>
+{% endblock %}

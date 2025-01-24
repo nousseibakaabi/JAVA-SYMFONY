@@ -1,0 +1,103 @@
+{% extends 'base-back.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Bonjour, bienvenue !</h4>
+                        <p class="mb-0">Votre modèle de tableau de bord professionnel</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Application</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Profil</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="profile">
+                        <div class="profile-head">
+                            <div class="photo-content">
+                                <div class="cover-photo"></div>
+                            </div>
+                            <div class="profile-info">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="profile-photo">
+                                            <img src="{{ asset('uploads/images/' ~ user.image) }}" class="img-fluid rounded-circle" alt="{{ user.name }} Photo">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9 col-12">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-name">
+                                                    <h4 class="text-primary mb-0">{{ user.name }}</h4>
+                                                    <p>
+                                                        {% for role in user.roles %}
+                                                            {{ role }}
+                                                        {% endfor %}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-email">
+                                                    <h4 class="text-muted mb-0">Email</h4>
+                                                    <p>{{ user.email }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-adress">
+                                                    <h4 class="text-muted mb-0">address</h4>
+                                                    <p>{{ user.address }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-statu">
+                                                    <h4 class="text-muted mb-0">Statut</h4>
+                                                    <p>{{ user.status }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-statu">
+                                                    <h4 class="text-muted mb-0">Question</h4>
+                                                    <p>{{ user.question }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6 border-right-1">
+                                                <div class="profile-statu">
+                                                    <h4 class="text-muted mb-0">Reponse</h4>
+                                                    <p>{{ user.answer }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col">
+                                        <a class="btn btn-primary py-3 px-5" href="{{ path('app_edit_profile_admin') }}">Modifier les informations</a>
+                                    </div>
+                                    <div class="col">
+                                        <a class="btn btn-primary py-3 px-5" href="{{ path('reset_password_profil_admin') }}">Modifier le mot de passe</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

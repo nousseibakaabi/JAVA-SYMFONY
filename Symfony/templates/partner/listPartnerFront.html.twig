@@ -1,0 +1,94 @@
+{% extends 'base-front.html.twig' %}
+
+{% block title %}Partner Index{% endblock %}
+{% block stylesheets %}
+    <style>
+        .event-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .event-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .event-card table {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .event-card th {
+            width: 40%;
+            text-align: left;
+        }
+
+        .event-card td {
+            width: 60%;
+            text-align: left;
+            max-width: 150px; /* Adjust the max-width as needed */
+            word-wrap: break-word; /* Allow the content to wrap within the specified width */
+        }
+
+        .event-card .btn-primary {
+            width: 100%;
+        }
+        .custom-image {
+            width: 300px; /* Définir la largeur souhaitée */
+            height: 200px; /* Conserver le ratio hauteur/largeur */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Partners</h6>
+                <h1 class="mb-5">Our Partners</h1>
+            </div>
+            <div class="row g-4">
+                {% for partner in pagination %}
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item bg-light">
+                            <div class="overflow-hidden">
+                                <img class="custom-image" src="{{ asset('uploads/' ~ partner.image) }}" alt="">
+                            </div>
+                            <div class="text-center p-4">
+                                <h4 class="mb-0">{{ partner.namepartner }}</h4>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>partner's Type</th>
+                                        <td>{{ partner.typepartner }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ partner.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone N°</th>
+                                        <td>{{ partner.tel }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <a href="{{ path('show_events_by_partner', {'id': partner.idpartner}) }}" class="btn btn-primary">Show Events</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {# Affichage de la pagination #}
+                                    <div class="pagination-container">
+    {% include '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' with {'pagination': pagination} %}
+                                    </div>
+        </div>
+    </div>
+
+    
+{% endblock %}

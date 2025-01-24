@@ -1,0 +1,92 @@
+{% extends 'base-back.html.twig' %}
+{% block title %}Home Admin{% endblock %}
+
+{% block body %}
+<div class="content-body">
+
+<div class="container-fluid">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                <h4>List Of Discounts</h4>
+            </div>
+        </div>
+        <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('app_index_admin') }}">Home</a></li>
+                <li class="breadcrumb-item active"><a href="#">All Discount</a></li>
+            </ol>
+        </div>
+    </div>
+    {% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Discounts</h4>
+                    <a href="{{ path('app_remise_add')}}" class="btn btn-primary"> + Add New</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive recentOrderTable">
+                        <table class="table verticle-middle table-responsive-md">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Code</th>
+                                    <th scope="col">Pourcentage</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for remise in remises %}
+                                <tr>
+                                    <td>{{ remise.code }}</td>
+                                    <td>{{ remise.pourcentage }}</td>
+                                    <td>
+                                        <a href="{{ path('edit_remise', {'id': remise.id}) }}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-id="{{ remise.id }}"><i class="la la-trash-o"></i></button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const confirmation = confirm('Are you sure you want to delete this discount?');
+
+                if (confirmation) {
+                    const form = document.createElement('form');
+                    form.setAttribute('method', 'post');
+                    form.setAttribute('action', "{{ path('delete_remise', {'id': 'REPLACE_ID'}) }}".replace('REPLACE_ID', id));
+
+                    const hiddenField = document.createElement('input');
+                    hiddenField.setAttribute('type', 'hidden');
+                    hiddenField.setAttribute('name', 'id');
+                    hiddenField.setAttribute('value', id);
+
+                    form.appendChild(hiddenField);
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

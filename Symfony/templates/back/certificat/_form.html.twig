@@ -1,0 +1,46 @@
+{{ form_start (form, {'attr': {'novalidate': 'novalidate'}})}}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="{{ form.nomCertificat.vars.id }}" class="form-label">Name</label>
+            {{ form_widget(form.nomCertificat, {'attr': {'class': 'form-control'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.nomCertificat) }}
+            </div>        </div>
+        <div class="form-group">
+            <label for="{{ form.domaineCertificat.vars.id }}" class="form-label">Domain</label>
+            {{ form_widget(form.domaineCertificat, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.domaineCertificat) }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.niveau.vars.id }}" class="form-label">Level</label>
+            {{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.niveau) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.dateObtentionCertificat, 'Delivration Date') }}
+            {{ form_widget(form.dateObtentionCertificat, {'attr': {'class': 'form-control datepicker-default', 'id': 'datepicker'}}) }}
+            <div class="error-message">
+                {{ form_errors(form.dateObtentionCertificat) }}
+            </div>            </div>
+
+        <div class="form-group">
+            <label for="{{ form.idEtablissement.vars.id }}" class="form-label">Etablissement</label>
+            {{ form_widget(form.idEtablissement, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.idEtablissement) }}
+        </div>
+                <div class="form-group">
+            {{ form_label(form.recaptcha, 'Recaptcha') }}
+            {{ form_widget(form.recaptcha) }}
+            <div class="error-message">
+                {{ form_errors(form.recaptcha) }}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

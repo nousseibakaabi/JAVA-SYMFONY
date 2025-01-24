@@ -1,0 +1,19 @@
+{% extends '/back/gestion.html.twig' %}
+
+{% block title %}Edit Tuteur{% endblock %}
+
+{% block body %}
+    <h1>Edit Tuteur</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.date_naisc) }}
+        {{ form_row(form.tlf) }}
+        {{ form_row(form.profession) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.image) }}
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    {{ form_end(form) }}
+{% endblock %}

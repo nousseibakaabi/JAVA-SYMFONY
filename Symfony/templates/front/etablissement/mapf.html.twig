@@ -1,0 +1,90 @@
+<!-- Remplacez 'YOUR_API_KEY' par votre clé API Google Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKbAQafF9CzI3D1HJkRgwxWywnFK8oSgM&libraries=places&callback=initialize" async defer></script>
+<div id="map" style="width: 946px; height: 400px;"></div>
+<script>
+    var map;
+    var markers = [];
+    var selectedMarker;
+    var searchBox;
+
+    function initialize() {
+        var mapOptions = {
+            center: {lat: 36.8065, lng: 10.1815}, // Coordonnées de Tunis
+            zoom: 8
+        };
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        initSearchBox();
+
+        // Récupérer l'adresse de l'établissement depuis le modèle Twig
+        var adresseEtablissement = "{{ etablissement.adresseEtablissement }}";
+
+        // Effectuer une requête de géocodage pour obtenir les coordonnées géographiques
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: adresseEtablissement }, function(results, status) {
+            if (status === 'OK') {
+                var location = results[0].geometry.location;
+                addMarker(location);
+                map.setCenter(location);
+            } else {
+                console.error('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+    }
+
+    // Fonction pour ajouter un marqueur sur la carte
+    function addMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+        markers.push(marker);
+        selectedMarker = marker;
+    }
+
+    // Fonction pour effacer tous les marqueurs de la carte
+    function clearMarkers() {
+        markers.forEach(function(marker) {
+            marker.setMap(null);
+        });
+        markers = [];
+    }
+
+    // Fonction pour initialiser la boîte de recherche
+    function initSearchBox() {
+        var input = document.getElementById('searchInput');
+        searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length === 0) {
+                return;
+            }
+
+            clearMarkers();
+
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                addMarker(place.geometry.location);
+
+                if (place.geometry.viewport) {
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+    }
+
+</script>

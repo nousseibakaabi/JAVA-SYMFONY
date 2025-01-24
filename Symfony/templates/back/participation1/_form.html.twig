@@ -1,0 +1,44 @@
+{{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="{{ form.level.vars.id }}" class="form-label">Level</label>
+            {{ form_widget(form.level, {'attr': {'class': 'form-control'}}) }}
+            {% for error in form.level.vars.errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.student.vars.id }}" class="form-label">Student</label>
+            {{ form_widget(form.student, {'attr': {'class': 'form-control'}}) }}
+            {% for error in form.student.vars.errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.participationstatus.vars.id }}" class="form-label">Participation Status</label>
+            {{ form_widget(form.participationstatus, {'attr': {'class': 'form-control'}}) }}
+            {% for error in form.participationstatus.vars.errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.startdate, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.startdate) }}
+            {% for error in form.startdate.vars.errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.comment.vars.id }}" class="form-label">Comment</label>
+            {{ form_widget(form.comment, {'attr': {'class': 'form-control'}}) }}
+            {% for error in form.comment.vars.errors %}
+                <div class="alert alert-danger">{{ error.message }}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }}

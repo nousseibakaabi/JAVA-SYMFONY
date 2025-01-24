@@ -1,0 +1,82 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.niveau, 'Level') }} {# Update the field name to "niveau" #}
+    {{ form_widget(form.niveau, {'attr': {'class': 'form-control'}}) }} {# Update the field name to "niveau" #}
+    {% if form_errors(form.niveau)|length > 0 %} {# Update the field name to "niveau" #}
+        <div class="alert alert-danger">{{ form_errors(form.niveau) }}</div> {# Update the field name to "niveau" #}
+    {% endif %}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.categorie, 'Category') }}
+    {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.categorie)|length > 0 %}
+        <div class="alert alert-danger">{{ form_errors(form.categorie) }}</div>
+    {% endif %}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.titre, 'Title') }}
+    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.titre)|length > 0 %}
+        <div class="alert alert-danger">{{ form_errors(form.titre) }}</div>
+    {% endif %}
+</div>
+
+<div class="form-group">
+    {{ form_label(form.description, 'Description') }}
+    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.description)|length > 0 %}
+        <div class="alert alert-danger">{{ form_errors(form.description) }}</div>
+    {% endif %}
+</div>
+
+<div class="form-row">
+    <div class="col">
+        <div class="form-group">
+            {{ form_label(form.date_d, 'Debut Date') }}
+            {{ form_widget(form.date_d, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.date_d)|length > 0 %}
+                <div class="alert alert-danger">{{ form_errors(form.date_d) }}</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-group">
+            {{ form_label(form.date_f, 'Last Date') }}
+            {{ form_widget(form.date_f, {'attr': {'class': 'form-control'}}) }}
+            {% if form_errors(form.date_f)|length > 0 %}
+                <div class="alert alert-danger">{{ form_errors(form.date_f) }}</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.lien, 'Link') }}
+    {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.lien)|length > 0 %}
+        <div class="alert alert-danger">{{ form_errors(form.lien) }}</div>
+    {% endif %}
+</div>
+<div class="form-group">
+    {{ form_label(form.pdfFile, 'Pdf') }}
+    {{ form_widget(form.pdfFile, {'attr': {'class': 'form-control'}}) }}
+    {% if form_errors(form.pdfFile)|length > 0 %}
+        <div class="alert alert-danger">{{ form_errors(form.pdfFile) }}</div>
+    {% endif %}
+</div>
+
+<div class="text-center">
+    <button type="submit" class="btn btn-primary">{{ button_label }}</button>
+    <a href="{{ path('app_formation_index_front') }}" class="btn btn-secondary">Back to List</a>
+</div>
+
+{{ form_end(form) }}
+
+{% if form.vars.errors|length > 0 %}
+    <div class="alert alert-danger mt-3">
+        {{ form_errors(form) }}
+    </div>
+{% endif %}

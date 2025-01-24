@@ -1,0 +1,24 @@
+events:
+  index:
+    title: Events
+    our_events: Our Events
+    date: Date
+    partners: Partners
+    max_number: Max Number
+    price: Price
+    description: Description
+    up: UP ⬆️
+    down: DOWN ⬇️
+Course Details: Course Details
+Add Course: Add Course
+Level: Level
+Category: Category
+Description: Description
+Start Date: Start Date
+End Date: End Date
+Link: Link
+Edit: Edit
+Delete: Delete
+Are you sure you want to delete this course?: Are you sure you want to delete this course?
+View PDF: View PDF
+View Quizzes: View Quizzes

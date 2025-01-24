@@ -1,0 +1,76 @@
+{% extends 'backend/Dashboard.html.twig' %}
+
+{% block title %}Participation index{% endblock %}
+
+{% block body %}
+
+  <div class="container-fluid">
+				    
+				    
+<div class="row page-titles mx-0">
+   <div class="col-sm-6 p-md-0">
+            <div class="welcome-text">
+                    <h4>All Participation</h4>
+             </div>
+          </div>
+          <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Participations</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0);">Show All Participations</a></li>
+                        </ol>
+                    </div>
+                </div>
+         <div class="col-xl-12 col-xxl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Participation List</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive recentOrderTable">
+                                    <table class="table verticle-middle table-responsive-md">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Student</th>
+                                                <th scope="col">Level</th>
+                                                <th scope="col">Date</th>
+                                             
+                                                <th scope="col">Participation Status</th>
+                                                 <th scope="col">Comment</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for participation1 in participation1s %}
+                                            <tr>
+                                                <td>{{ participation1.id }}</td> 
+                                                <td>{{ participation1.student.name }}</td>
+                                                <td>{{ participation1.level.name }}</td>
+                                                <td>{{ participation1.startdate ? participation1.startdate|date('Y-m-d H:i:s') : '' }}</td>
+                                                
+
+                                                <td><span class="badge badge-rounded badge-primary">{{ participation1.participationstatus }}</span></td>
+                                                <td>{{ participation1.comment }}</td>
+                                                <td>
+                                                    
+                                                    <a href="{{ path('app_participation1_delete', {'id': participation1.id}) }}" class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></a>
+                                                </td>
+                                            </tr>
+                                             {% else %}
+                            <tr>
+                                <td colspan="7">no records found</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
