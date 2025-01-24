@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="school_aff" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="252.0" prefWidth="771.0" style="-fx-background-color: #ffff;" styleClass="white-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.ItemsE">
+   <children>
+      <Label fx:id="Nom_Etablissafficher" layoutX="413.0" layoutY="14.0" text="Establishment" />
+      <Label fx:id="Adresse_Etablissementafficher" layoutX="418.0" layoutY="45.0" text="Adress" />
+      <Label fx:id="Type_Etablissementafiicher" layoutX="413.0" layoutY="76.0" text="Type" />
+      <Label fx:id="Tel_Etablissementafficher" layoutX="418.0" layoutY="103.0" text="Phone" />
+      <Label fx:id="Directeur_Etablissementafficher" layoutX="420.0" layoutY="132.0" text="Director" />
+      <Button fx:id="supprimerBT" layoutX="558.0" layoutY="107.0" mnemonicParsing="false" onAction="#supprimer" prefHeight="38.0" prefWidth="79.0" stylesheets="@style1.css" text="Delete">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="modifierBT" layoutX="654.0" layoutY="107.0" mnemonicParsing="false" onAction="#modifier" prefHeight="38.0" prefWidth="79.0" stylesheets="@style1.css" text="Edit">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="88.0" layoutY="20.0" prefHeight="104.0" prefWidth="102.0" stylesheets="@style.css">
+         <children>
+            <ImageView fx:id="SchoolIV" fitHeight="130.0" fitWidth="125.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="radius" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
+      <Label layoutX="297.0" layoutY="15.0" text="Establishment:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="297.0" layoutY="45.0" text="Address:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="297.0" layoutY="77.0" text="Type:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="297.0" layoutY="103.0" prefHeight="18.0" prefWidth="108.0" text="Phone:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="297.0" layoutY="132.0" text="Director:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="Date_Fondationafficher" layoutX="420.0" layoutY="159.0" text="Found Date" />
+      <Label layoutX="297.0" layoutY="159.0" text="Foundation Date">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="Nb_Certifafficher" layoutX="420.0" layoutY="194.0" text="Nb_Certifafficher" />
+      <Label layoutX="297.0" layoutY="194.0" text="Nb of Certificate ">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

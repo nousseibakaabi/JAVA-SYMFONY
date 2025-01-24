@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="apprenant_aff" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="738.0" style="-fx-background-color: #ffff;" styleClass="white-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.Apprenants">
+   <children>
+      <Label fx:id="name_label" layoutX="494.0" layoutY="14.0" text="Name" />
+      <Label fx:id="Training_label" layoutX="494.0" layoutY="60.0" text="Training Name" />
+      <Label fx:id="status_label" layoutX="494.0" layoutY="83.0" text="status" />
+
+      <Button layoutX="409.0" layoutY="193.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="150.0" stylesheets="@buttonGEFront.css" text="BOOK" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+         <styleClass>
+            <String fx:value="radius" />
+            <String fx:value="button" />
+         </styleClass>
+      </Button>
+      <AnchorPane layoutX="43.0" layoutY="20.0" prefHeight="238.0" prefWidth="275.0" stylesheets="@style.css">
+         <children>
+            <ImageView fx:id="apprenantIV" fitHeight="238.0" fitWidth="275.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </AnchorPane>
+      <Label layoutX="378.0" layoutY="14.0" text="Name:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="378.0" layoutY="62.0" text="Training Name:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="378.0" layoutY="85.0" text="Status:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+
+
+
+      <Label layoutX="377.0" layoutY="36.0" text="Email:">
+         <font>
+            <Font name="Franklin Gothic Demi" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="email_label" layoutX="494.0" layoutY="34.0" text="Email" />
+   </children>
+</AnchorPane>

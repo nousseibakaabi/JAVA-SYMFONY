@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1019.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.UpdateEtabliss1">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="245.0" style="-fx-background-color: #212E53;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.842170943040401E-14" AnchorPane.topAnchor="0.0">
+            <children>
+            <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/USER.png" />
+               </image>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="50.0" />
+               </VBox.margin>
+            </ImageView>
+                <Label text="Tanit ONLINE" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#overview" prefHeight="38.0" prefWidth="246.0" stylesheets="@buttonGE.css" text="Overview" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-home-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#user" prefHeight="38.0" prefWidth="246.0" stylesheets="@buttonGE.css" text="Users" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-users-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#affi" prefHeight="38.0" prefWidth="246.0" stylesheets="@buttonGE.css" text="Establishments" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-school-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#gestioncertif" prefHeight="33.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Certificates" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-diploma-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#showEvents" prefHeight="39.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Events" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-event-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#showPartners" prefHeight="39.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Partners" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-giving-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Tutors Management" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/book-open-reader.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Students Management" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/people-poll.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#res" prefHeight="37.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Reservations" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/white.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" onAction="#logout" prefHeight="36.0" prefWidth="247.0" stylesheets="@buttonGE.css" text="Sign Out" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/icons8-sign-out-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+            </children>
+        </VBox>
+        <Label layoutX="277.0" layoutY="5.0" prefHeight="35.0" prefWidth="218.0" text="Update School">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <AnchorPane fx:id="mainForm" layoutX="267.0" layoutY="43.0" prefHeight="536.0" prefWidth="738.0" stylesheets="@style.css" AnchorPane.bottomAnchor="21.799999999999955" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="14.600000000000023" AnchorPane.topAnchor="43.0">
+            <children>
+                <Label layoutX="93.0" layoutY="56.0" text="Name">
+                    <font>
+                        <Font name="Franklin Gothic Demi" size="16.0" />
+                    </font></Label>
+                <Label layoutX="98.0" layoutY="188.0" text="Type">
+                    <font>
+                        <Font name="Franklin Gothic Demi" size="16.0" />
+                    </font></Label>
+                <Label layoutX="94.0" layoutY="367.0" text="Foundation Date">
+                    <font>
+                        <Font name="Franklin Gothic Demi" size="16.0" />
+                    </font></Label>
+                <Label layoutX="92.0" layoutY="240.0" text="Phone">
+                    <font>
+                        <Font name="Franklin Gothic Demi" size="16.0" />
+                    </font></Label>
+                <TextField fx:id="Nom_Etablissementmodif" layoutX="284.0" layoutY="47.2" prefHeight="35.0" prefWidth="175.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="278.0" AnchorPane.topAnchor="47.0" />
+                <TextField fx:id="Tel_Etablissementmodif" layoutX="284.0" layoutY="233.0" prefHeight="35.0" prefWidth="175.0" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="279.2" AnchorPane.topAnchor="233.0" />
+                <DatePicker fx:id="Date_Fondationmodif" layoutX="285.0" layoutY="359.0" prefHeight="35.0" prefWidth="175.0" AnchorPane.leftAnchor="285.0" AnchorPane.rightAnchor="279.0" AnchorPane.topAnchor="359.0" />
+                <AnchorPane layoutX="580.0" layoutY="52.0" prefHeight="130.0" prefWidth="125.0" stylesheets="@style.css" AnchorPane.rightAnchor="30.99999999999997" AnchorPane.topAnchor="52.0">
+                    <styleClass>
+                        <String fx:value="white-bg" />
+                        <String fx:value="shadow" />
+                        <String fx:value="radius" />
+                    </styleClass>
+                    <children>
+                        <ImageView fx:id="importIV" fitHeight="130.0" fitWidth="125.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.5999999999999943" AnchorPane.topAnchor="-1.0" />
+                    </children>
+                </AnchorPane>
+                <Button fx:id="importBT" layoutX="607.0" layoutY="198.0" mnemonicParsing="false" onAction="#importer" prefHeight="34.0" prefWidth="72.0" stylesheets="@buttonGE.css" text="Import" textFill="WHITE" AnchorPane.rightAnchor="58.39999999999998" AnchorPane.topAnchor="198.0">
+                    <font>
+                        <Font name="Arial Bold" size="12.0" />
+                    </font></Button>
+                <Button layoutX="507.0" layoutY="474.0" mnemonicParsing="false" onAction="#affi" prefHeight="39.0" prefWidth="86.0" stylesheets="@buttonGE.css" text="Back" textFill="WHITE" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="126.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Button layoutX="635.0" layoutY="463.0" mnemonicParsing="false" onAction="#modifier" prefHeight="39.0" prefWidth="86.0" stylesheets="@buttonGE.css" text="Update" textFill="WHITE" AnchorPane.bottomAnchor="34.0" AnchorPane.rightAnchor="31.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Label layoutX="94.0" layoutY="120.0" text="Adresse">
+                    <font>
+                        <Font name="Franklin Gothic Demi" size="16.0" />
+                    </font>
+                </Label>
+            <TextField fx:id="Adresse_Etablissementmodif" layoutX="284.0" layoutY="112.0" prefHeight="35.0" prefWidth="175.0" />
+            <TextField fx:id="Directeur_Etablissementmodif" layoutX="284.0" layoutY="294.0" prefHeight="35.0" prefWidth="175.0" />
+            <Label layoutX="89.0" layoutY="302.0" text="Director of School">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+                <ChoiceBox fx:id="Type_Etablissementmodif" layoutX="285.0" layoutY="178.0" prefHeight="39.0" prefWidth="173.0" styleClass="combo-box" stylesheets="@style.css">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="École en ligne" />
+                            <String fx:value="Université virtuelle" />
+                            <String fx:value="Centre de formation à distance" />
+                        </FXCollections>
+                    </items>
+                </ChoiceBox>
+            <Button layoutX="429.0" layoutY="463.0" mnemonicParsing="false" onAction="#clear" prefHeight="39.0" prefWidth="86.0" stylesheets="@buttonGE.css" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>            </children>
+         <styleClass>
+            <String fx:value="white-bg" />
+            <String fx:value="shadow" />
+            <String fx:value="radius" />
+         </styleClass>
+        </AnchorPane>
+      <Label fx:id="nomLabelError" layoutX="357.0" layoutY="130.0" prefHeight="18.0" prefWidth="418.0" textFill="red" visible="false" />
+      <Label fx:id="addressLabelError" layoutX="357.0" layoutY="194.0" prefHeight="18.0" prefWidth="418.0" textFill="red" visible="false" />
+      <Label fx:id="telLabelError" layoutX="357.0" layoutY="315.0" prefHeight="18.0" prefWidth="433.0" textFill="red" visible="false" />
+      <Label fx:id="directorLabelError" layoutX="356.0" layoutY="377.0" prefHeight="18.0" prefWidth="418.0" textFill="red" visible="false" />
+      <Label fx:id="datefondLabelError" layoutX="361.0" layoutY="445.0" prefHeight="8.0" prefWidth="418.0" textFill="red" visible="false" />
+      <TextField fx:id="ID_Etablissementmodif" editable="false" layoutX="569.0" layoutY="-54.0" prefHeight="35.0" prefWidth="175.0" />
+    </children>
+</AnchorPane>

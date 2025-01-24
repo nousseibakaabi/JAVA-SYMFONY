@@ -1,0 +1,65 @@
+/* Appliquer un style au texte du titre du calendrier */
+.text-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-fill: #212E53;
+}
+
+/* Appliquer un style aux boutons du calendrier */
+.button-previous, .button-next {
+    -fx-font-size: 14px;
+    -fx-background-color: #212E53; /* Couleur de fond */
+    -fx-text-fill: white; /* Couleur du texte */
+    -fx-padding: 5px 10px;
+}
+
+/* Appliquer un style au texte des jours de la semaine */
+.text-day {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: #212E53; /* Couleur du texte */
+}
+
+/* Appliquer un style à chaque jour du calendrier */
+.anchor-pane-day {
+    -fx-background-color: #f0f0f0;
+    -fx-border-radius: 10px;
+    -fx-border-color: #ccc; /* Couleur de la bordure */
+    -fx-border-width: 0.5px;
+}
+
+.grid-pane-day {
+    -fx-background-color: white;
+}
+
+/* Appliquer un style au texte des jours du mois */
+.text-day-number {
+    -fx-font-size: 16px;
+    -fx-fill: #212E53; /* Couleur du texte */
+}
+
+/* Appliquer un style à la boîte d'événements */
+.vbox-events {
+    -fx-padding: 3px;
+    -fx-background-color: #af5a5b; /* Couleur de fond */
+    -fx-background-radius: 5px;
+}
+
+/* Appliquer un style au texte des événements */
+.text-event {
+    -fx-font-size: 14px;
+    -fx-fill: #212E53; /* Couleur du texte */
+}
+
+
+/* Styles pour les noms de jour */
+.text-day-name {
+    /* Ajoutez vos styles spécifiques ici */
+    -fx-font-weight: bold;
+    -fx-fill: #ffff;
+}
+
+/* Styles pour les événements */
+.event-text {
+    /* Ajoutez vos styles spécifiques ici */
+    -fx-fill: #212E53;}

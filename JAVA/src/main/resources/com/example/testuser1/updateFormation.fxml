@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1019.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.updateFormation1">
+    <children>
+        <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="245.0" styleClass="button" stylesheets="@buttonUP.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.842170943040401E-14" AnchorPane.topAnchor="0.0">
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@images/logo.png" />
+                    </image>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="50.0" />
+                    </VBox.margin>
+                </ImageView>
+                <Label text="Tanit ONLINE" textFill="WHITE">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="246.0" stylesheets="@buttonUP.css" text="Overview" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/loop.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Orders" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/settings.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Customers" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/home.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+
+
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="18.0" layoutY="393.0" mnemonicParsing="false" onAction="#showTuteur1" prefHeight="36.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Tutors" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/tuteurblanc.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" layoutX="18.0" layoutY="356.0" mnemonicParsing="false" onAction="#showFormation1" prefHeight="37.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Courses" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/formation_blanc.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="50.0" />
+               </padding>
+            </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Settings" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/settings.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+                <Button alignment="BASELINE_LEFT" graphicTextGap="22.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="247.0" stylesheets="@buttonUP.css" text="Sign Out" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="31.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@images/loop.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding>
+                </Button>
+            </children>
+        </VBox>
+        <Label layoutX="337.0" layoutY="5.0" text="Update Course">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <AnchorPane fx:id="mainForm" layoutX="267.0" layoutY="43.0" prefHeight="536.0" prefWidth="738.0" stylesheets="@style.css" AnchorPane.bottomAnchor="21.799999999999955" AnchorPane.leftAnchor="267.0" AnchorPane.rightAnchor="14.600000000000023" AnchorPane.topAnchor="43.0">
+            <styleClass>
+                <String fx:value="white-bg" />
+                <String fx:value="radius" />
+                <String fx:value="shadow" />
+            </styleClass>
+            <children>
+                <Button layoutX="426.0" layoutY="480.0" mnemonicParsing="false" onAction="#clear" prefHeight="39.0" prefWidth="102.0" stylesheets="@buttonUP.css" text="Clear" textFill="WHITE" AnchorPane.bottomAnchor="15.999999999999886" AnchorPane.rightAnchor="209.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Button>
+                <Button layoutX="545.0" layoutY="480.0" mnemonicParsing="false" onAction="#modifier" prefHeight="39.0" prefWidth="102.0" stylesheets="@buttonUP.css" text="Edit" textFill="WHITE" AnchorPane.bottomAnchor="15.999999999999886" AnchorPane.rightAnchor="90.0">
+                    <font>
+                        <Font name="Arial Narrow Bold" size="16.0" />
+                    </font>
+                </Button>
+            <Button layoutX="301.0" layoutY="480.0" mnemonicParsing="false" onAction="#importerPDF" prefHeight="39.0" prefWidth="102.0" stylesheets="@buttonUP.css" text="Import" textFill="WHITE">
+               <font>
+                  <Font name="Arial Narrow Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="66.0" layoutY="53.0" text="ID Formation">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="66.0" layoutY="152.0" text="Level">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="197.0" text="Category">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="66.0" layoutY="241.0" prefHeight="19.0" prefWidth="154.0" text="Debut Date">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="69.0" layoutY="290.0" text="Last Date">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="id_formation1" editable="false" layoutX="257.0" layoutY="45.0" prefHeight="35.0" prefWidth="175.0" />
+            <DatePicker fx:id="date_d1" layoutX="258.0" layoutY="233.0" prefHeight="35.0" prefWidth="175.0" />
+            <Label layoutX="65.0" layoutY="99.0" text="Tutor">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lien1" layoutX="255.0" layoutY="339.0" prefHeight="35.0" prefWidth="175.0" />
+            <ChoiceBox fx:id="nom_prenom_tuteur1" layoutX="257.0" layoutY="96.0" prefHeight="26.0" prefWidth="175.0" />
+            <ChoiceBox fx:id="categorie1" layoutX="258.0" layoutY="193.0" prefHeight="26.0" prefWidth="175.0">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Informatique" />
+                     <String fx:value="Finance" />
+                     <String fx:value="Santé" />
+                     <String fx:value="Marketing" />
+                     <String fx:value="Éducation" />
+                     <String fx:value="Communication" />
+                     <String fx:value="Ingénierie" />
+                     <String fx:value="Droit" />
+                     <String fx:value="Sciences sociales" />
+                     <String fx:value="Arts et design" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Label layoutX="565.0" layoutY="53.0" text="Title">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="titre1" layoutX="493.0" layoutY="91.0" prefHeight="35.0" prefWidth="175.0" />
+            <Label layoutX="543.0" layoutY="142.0" text="Description">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="date_f1" layoutX="258.0" layoutY="282.0" prefHeight="35.0" prefWidth="175.0" />
+            <Label layoutX="69.0" layoutY="346.0" text="Meet">
+               <font>
+                  <Font name="Franklin Gothic Demi" size="16.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="description1" layoutX="493.0" layoutY="182.0" prefHeight="200.0" prefWidth="200.0" />
+            <ComboBox fx:id="comboLevel" layoutX="257.0" layoutY="149.0" prefHeight="27.0" prefWidth="175.0" />
+            </children>
+        </AnchorPane>
+        <Hyperlink layoutX="267.0" layoutY="6.0" onAction="#retour" prefHeight="24.0" prefWidth="60.0" text="&lt;Back">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Hyperlink>
+    </children>
+</AnchorPane>

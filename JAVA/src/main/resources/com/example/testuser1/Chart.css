@@ -1,0 +1,42 @@
+/* Set background color */
+.chart {
+    -fx-background-color: #f0f0f0;
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+}
+
+/* Set bar colors */
+.bar {
+    -fx-bar-fill: #3366cc;
+    -fx-bar-width: 20px;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+}
+
+/* Set axis label colors */
+.axis-label {
+    -fx-text-fill: #333333;
+}
+
+/* Set title color */
+.chart-title {
+    -fx-text-fill: #333333;
+}
+/* Example of additional customizations */
+.chart {
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+}
+
+/* Style for the CategoryAxis */
+.axis {
+    -fx-font-size: 10px; /* Set the font size */
+    -fx-stroke: blue; /* Set the axis color */
+}
+
+
+.axis-n {
+    -fx-font-size: 10px; /* Set the font size */
+    -fx-font-weight: bold; /* Set the font weight to bold */
+    -fx-text-fill: black; /* Set the text color to black */
+}

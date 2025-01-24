@@ -1,0 +1,89 @@
+/* AddReservation.fxml */
+.anchor-pane-white {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 100;
+    -fx-effect: innershadow(gaussian, #c0c0c0, 10, 0, 0, 0);
+}
+
+.text-green {
+    -fx-fill: green;
+}
+
+.text-field-nb{
+    -fx-background-color: TRANSPARENTE;
+    -fx-border-color: #D2B48C;
+    -fx-border-width: 0px 0px 3px 0px;
+}
+.label-error {
+    -fx-text-fill: #e12222;
+}
+
+.button-pay {
+    -fx-background-color: lightgreen;
+}
+
+.anchor-pane-paiement {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 100;
+    -fx-effect: innershadow(gaussian, #c0c0c0, 10, 0, 0, 0);
+}
+
+.button-payer {
+    -fx-background-color: lightgreen;
+}
+
+/* Card.fxml */
+.anchor-pane-card {
+    -fx-background-color: white;
+    -fx-border-color: lightgreen;
+    -fx-border-width: 5;
+}
+
+.anchor-pane-green {
+    -fx-background-color: lightgreen;
+    -fx-border-radius: 100;
+}
+
+.text-your-amount {
+    -fx-fill: green;
+}
+
+.text-change {
+    -fx-fill: green;
+}
+
+/* CardBack.fxml */
+.anchor-pane-card-back {
+    -fx-background-color: lightgreen;
+    -fx-background-radius: 20;
+    -fx-border-radius: 100;
+    -fx-effect: innershadow(gaussian, #c0c0c0, 10, 0, 0, 0);
+}
+
+.label-green {
+    -fx-text-fill: green;
+}
+
+.label-white {
+    -fx-text-fill: white;
+}
+
+/* ShowBack.fxml */
+.anchor-pane-show-back {
+    -fx-background-color: #FAF0DC;
+}
+
+.text-reservations {
+    -fx-fill: #3ebc55;
+}
+
+/* ShowReservation.fxml */
+.anchor-pane-show-reservation {
+    -fx-background-color: #FAF0DC;
+}
+
+.text-your-reservation-list {
+    -fx-fill: #3ebc55;
+}

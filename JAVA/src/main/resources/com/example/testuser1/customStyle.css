@@ -1,0 +1,57 @@
+
+.white-bg {
+    -fx-background-color: #ffffff;
+}
+
+/* Style des labels */
+.label {
+    -fx-font-family: "Franklin Gothic Demi";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Couleur du texte */
+}
+
+/* Style de l'image */
+#SchoolIV {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 0);
+}
+
+/* Style du titre */
+#Nom_Etablissafficher {
+    -fx-font-size: 19px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #246178; /* Couleur du texte */
+}
+/* Style de l'adresse */
+#Etablishment {
+    -fx-font-size: 14px;
+}
+
+/* Style de l'adresse */
+#Address {
+    -fx-font-size: 14px;
+}
+
+/* Style du type */
+#Type {
+    -fx-font-size: 14px;
+}
+
+/* Style du numéro de téléphone */
+#Phone {
+    -fx-font-size: 14px;
+}
+
+/* Style du directeur */
+#Director {
+    -fx-font-size: 14px;
+}
+
+/* Style de la date de fondation */
+#FoundDate {
+    -fx-font-size: 14px;
+}
+
+/* Style du nombre de certificats */
+#NbCertif {
+    -fx-font-size: 14px;
+}

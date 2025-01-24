@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="531.0" prefWidth="357.0" style="-fx-background-color: #F7F4EA; -fx-background-color:#F7F4EA  ;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.SignUpController">
+   <stylesheets>
+      <URL value="@design.css" />
+   </stylesheets>
+   <children>
+      <TextField fx:id="nameTF" layoutX="47.0" layoutY="136.0" prefHeight="25.0" prefWidth="234.0" promptText="UserName" />
+      <TextField fx:id="ADDTF" layoutX="47.0" layoutY="172.0" prefHeight="25.0" prefWidth="234.0" promptText="Address" />
+      <TextField fx:id="EMAILUPTF" layoutX="47.0" layoutY="311.0" prefHeight="25.0" prefWidth="234.0" promptText="Email" />
+      <TextField fx:id="passUPTF" layoutX="47.0" layoutY="345.0" prefHeight="25.0" prefWidth="234.0" promptText="Password" />
+      <TextField fx:id="CPASSUPTF" layoutX="47.0" layoutY="378.0" prefHeight="25.0" prefWidth="234.0" promptText="Confirm Password" />
+      <Button fx:id="SignUP" layoutX="129.0" layoutY="411.0" mnemonicParsing="false" onAction="#SignUP" styleClass="login-btn" text="Sign Up" textFill="#8a9d0e" />
+      <Button layoutX="134.0" layoutY="475.0" mnemonicParsing="false" onAction="#LOGINUPTF" styleClass="login-btn" text="Log in" textFill="#809f12" />
+      <Label layoutX="75.0" layoutY="449.0" text="Already have an account " textFill="#0a8080">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="101.0" layoutY="45.0" prefHeight="32.0" prefWidth="249.0" text="Welcome to Tanit Online " textFill="#0a8080">
+         <font>
+            <Font name="System Italic" size="22.0" />
+         </font></Label>
+      <ComboBox fx:id="ROLETF" layoutX="47.0" layoutY="205.0" prefHeight="25.0" prefWidth="234.0" promptText="Role" styleClass="gradient" />
+      <ImageView fitHeight="117.0" fitWidth="117.0" layoutX="-11.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logoTanit.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="errors" layoutX="50.0" layoutY="117.0" prefHeight="17.0" prefWidth="228.0" textFill="RED" />
+      <ComboBox fx:id="Question" layoutX="47.0" layoutY="240.0" prefHeight="25.0" prefWidth="234.0" promptText="question" styleClass="gradient" />
+      <TextField fx:id="Answer" layoutX="47.0" layoutY="275.0" prefHeight="25.0" prefWidth="234.0" promptText="Answer" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchor" prefHeight="660.0" prefWidth="984.0" style="-fx-background-color: #F7F4EA;" stylesheets="@Styleeee.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.Paiement2">
+   <children>
+      <AnchorPane fx:id="paiement" layoutX="45.0" layoutY="145.0" prefHeight="494.0" prefWidth="880.0" style="-fx-background-color: white; -fx-background-radius: 20; -fx-border-radius: 100; -fx-effect: innershadow(gaussian, #c0c0c0, 10, 0, 0, 0);">
+         <children>
+            <Button fx:id="payer" contentDisplay="TOP" layoutX="430.0" layoutY="433.0" mnemonicParsing="false" onAction="#payer" prefHeight="41.0" prefWidth="90.0" style="-fx-background-color: lightgreen;" text="Confirmer" textAlignment="CENTER" textFill="#475151" textOverrun="CENTER_ELLIPSIS" />
+            <TextField fx:id="numCard" alignment="TOP_LEFT" layoutX="75.0" layoutY="217.0" promptText="Card Number" style="-fx-background-color: TRANSPARENTE; -fx-border-color: #D2B48C; -fx-border-width: 0px 0px 3px 0px;" />
+            <Label fx:id="errorCard" layoutX="74.0" layoutY="259.0" prefHeight="21.0" prefWidth="199.0" styleClass="label-error" />
+            <Text fill="GREEN" layoutX="50.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your amount is " />
+            <Label fx:id="montant" layoutX="166.0" layoutY="147.0" prefHeight="21.0" prefWidth="151.0" textFill="#170e0e" />
+            <TextField fx:id="CVV" alignment="TOP_LEFT" layoutX="630.0" layoutY="218.0" promptText="CVV" style="-fx-background-color: TRANSPARENTE; -fx-border-color: #D2B48C; -fx-border-width: 0px 0px 3px 0px;" />
+            <Label fx:id="errorCvv" layoutX="624.0" layoutY="263.0" prefHeight="21.0" prefWidth="199.0" styleClass="label-error" />
+            <TextField fx:id="name" alignment="TOP_LEFT" layoutX="353.0" layoutY="217.0" promptText="Your Name" style="-fx-background-color: TRANSPARENTE; -fx-border-color: #D2B48C; -fx-border-width: 0px 0px 3px 0px;" />
+            <Label fx:id="errorName" alignment="TOP_LEFT" layoutX="319.0" layoutY="265.0" prefHeight="21.0" prefWidth="279.0" styleClass="label-error" textAlignment="CENTER" />
+            <TextField alignment="TOP_LEFT" layoutX="50.0" layoutY="351.0" prefHeight="34.0" prefWidth="105.0" promptText="Expire Date" style="-fx-background-color: TRANSPARENTE;" />
+            <DatePicker fx:id="date" layoutX="154.0" layoutY="353.0" prefHeight="31.0" prefWidth="151.0" />
+            <Label fx:id="errorDate" layoutX="55.0" layoutY="397.0" prefHeight="21.0" prefWidth="199.0" styleClass="label-error" />
+            <Text fill="#0a8080" layoutX="342.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Paiement">
+               <font>
+                  <Font name="System Bold Italic" size="44.0" />
+               </font>
+            </Text>
+            <Label fx:id="confi" layoutX="555.0" layoutY="443.0" prefHeight="21.0" prefWidth="187.0" styleClass="label-error" />
+         </children>
+      </AnchorPane>
+      <HBox layoutY="88.0" prefHeight="38.0" prefWidth="980.0" style="-fx-background-color: white;" styleClass="hbox1" stylesheets="@buttonGEFront.css">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <Hyperlink onAction="#home" text="Home" />
+            <Label text="&gt;">
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+            </Label>
+            <Hyperlink prefHeight="29.0" prefWidth="101.0" text="Paiement" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
+      <Hyperlink layoutX="10.0" layoutY="10.0" onAction="#home" text="Home" />
+      <Label layoutX="10.0" layoutY="10.0" text="&gt;" />
+      <Hyperlink fx:id="hyperlink" layoutX="10.0" layoutY="10.0" prefHeight="29.0" prefWidth="101.0" text="Reservations" />
+      <HBox layoutX="-50.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0" />
+      <HBox alignment="CENTER" layoutX="-14.0" layoutY="14.0" prefHeight="62.0" prefWidth="998.0" styleClass="hbox" stylesheets="@buttonGEFront.css">
+         <children>
+            <ImageView fitHeight="62.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/420061415_1580129922759933_3165525506138466855_n.png" />
+               </image>
+            </ImageView>
+            <Label text="Tanit ONLINE" textFill="#246178">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Calisto MT Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="62.0" prefWidth="27.0" />
+            <Button mnemonicParsing="false" onAction="#home" styleClass="btn" stylesheets="@buttonGEFront.css" text="HOME">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="btn" stylesheets="@buttonGEFront.css" text="Schools">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#event" styleClass="btn" stylesheets="@buttonGEFront.css" text="Events">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="btn" stylesheets="@buttonGEFront.css" text="Courses">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="btn" stylesheets="@buttonGEFront.css" text="Contacts">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#res" styleClass="btn" stylesheets="@buttonGEFront.css" text="Reservations">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="173.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-facebook-60.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-twitter-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-linkedin-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#profile" prefHeight="43.0" prefWidth="75.0" stylesheets="@buttonGEFront.css" text="Profil" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

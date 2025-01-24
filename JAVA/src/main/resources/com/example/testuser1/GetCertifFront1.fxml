@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="939.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.testuser1.GetCertifFront1">
+   <children>
+      <HBox layoutX="-1.0" layoutY="74.4" prefHeight="38.0" prefWidth="963.0" style="-fx-background-color: white;" styleClass="hbox1" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="74.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <Hyperlink onAction="#Home" text="Home" textFill="#635e5e" />
+            <Label text="&gt;" textFill="#635e5e">
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+            </Label>
+            <Hyperlink onAction="#SchoolsHyper" prefHeight="26.0" prefWidth="104.0" text="Certificates" textFill="#635e5e" />
+            <HBox prefHeight="38.0" prefWidth="252.0" />
+            <Label text="Search Certificate By Name" />
+            <TextField fx:id="searchByName" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="963.0" styleClass="hbox" stylesheets="@buttonGEFront.css">
+         <children>
+            <ImageView fitHeight="62.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/logoo.png" />
+               </image>
+            </ImageView>
+            <Label text="Tanit ONLINE" textFill="#246178">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Calisto MT Bold" size="18.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="62.0" prefWidth="27.0" />
+            <Button mnemonicParsing="false" onAction="#Home" styleClass="btn" stylesheets="@buttonGEFront.css" text="HOME">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showSchools" styleClass="btn" stylesheets="@buttonGEFront.css" text="Schools">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showEvents" styleClass="btn" stylesheets="@buttonGEFront.css" text="Events">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showCourses" styleClass="btn" stylesheets="@buttonGEFront.css" text="Courses">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#res" styleClass="btn" stylesheets="@buttonGEFront.css" text="Reservations">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" styleClass="btn" stylesheets="@buttonGEFront.css" text="Contacts">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="173.0" spacing="5.0">
+               <children>
+                  <Button mnemonicParsing="false" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-facebook-60.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="46.0" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-twitter-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#back" stylesheets="@buttonGEFront.css">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images1/icons8-linkedin-50.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </HBox>
+            <Button mnemonicParsing="false" onAction="#profile" prefHeight="43.0" prefWidth="63.0" stylesheets="@buttonGEFront.css" text="Profil" textFill="WHITE">
+               <font>
+                  <Font name="System Bold Italic" size="15.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <ImageView fx:id="notFound" fitHeight="626.0" fitWidth="1222.0" layoutX="-1396.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/notFound.jpg" />
+         </image>
+      </ImageView>
+      <ScrollPane prefHeight="650.0" prefWidth="963.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.7999999999999545" AnchorPane.topAnchor="117.0">
+         <content>
+            <AnchorPane prefHeight="595.0" prefWidth="1253.0">
+               <children>
+                  <GridPane fx:id="event_gridPane" prefHeight="46.0" prefWidth="145.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
