@@ -1,0 +1,1 @@
+This project combines a Java desktop application with a Symfony-based website. It’s an e-learning platform for students and teachers. Students can access courses, reserve events, and receive certificates after signing in. Teachers can upload courses, create tests and quizzes, and more.
